@@ -1,0 +1,3139 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Just a Dog Weekly</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost:wght@400;500;600&display=swap">
+<style>
+@font-face{font-family:"Norwester JADP";src:url("fonts/Norwester-Regular.otf") format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"Futura JADP";src:url("fonts/FuturaCyrillic-Book.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Futura JADP";src:url("fonts/FuturaCyrillic-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Futura JADP";src:url("fonts/FuturaCyrillic-Demi.woff2") format("woff2");font-weight:600;font-display:swap}
+/* Layout: a news front page. Blue masthead band, sticky section bar, then a 12-column grid that drops to one column on phones. */
+:root{
+  --blue:#0051ff; --navy:#0e067d; --mid:#396ee2; --soft:#e6eeff; --white:#ffffff;
+  --bg:#ffffff; --panel:#e6eeff; --ink:#0e067d; --ink-2:#4a4693; --rule:rgba(14,6,125,.16); --rule-strong:#0e067d;
+  --band:#0051ff; --band-ink:#ffffff; --band-ink-2:rgba(255,255,255,.82);
+  --accent:#0051ff; color-scheme:light; --foot-bg:#f3f5fa; --pod-bg:#0e067d; --flag-bg:#0e067d; --flag-ink:#ffffff; --grain:.07;
+  --display:"Norwester JADP",Norwester,"Bebas Neue",Impact,"Arial Narrow",sans-serif;
+  --body:"Futura JADP",Jost,"Century Gothic","Trebuchet MS",sans-serif;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--band)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:var(--grain);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -0.55'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:360px 360px}
+a{color:inherit}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Masthead */
+.mast{background:var(--band);color:var(--band-ink)}
+.mast .wrap{padding-block:18px 26px;display:grid;gap:14px}
+.mast-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;align-items:center;font-size:14px;color:var(--band-ink-2);letter-spacing:.02em}
+.mast-top label{display:flex;gap:8px;align-items:center}
+.mast select{font:inherit;font-size:14px;color:var(--navy);background:var(--white);border:0;padding:4px 8px;max-width:100%}
+.wordmark{text-align:center;font-family:var(--display);font-weight:400;font-size:clamp(30px,7.6vw,100px);line-height:.9;letter-spacing:.01em;margin:0;text-transform:uppercase;white-space:nowrap}
+.logo{display:flex;flex-direction:column;align-items:flex-end;gap:6px;width:fit-content;max-width:100%;margin-inline:auto;padding-block:16px 12px}
+.brand{font-size:15px;font-weight:400;letter-spacing:.03em;color:var(--band-ink-2)}
+.brand span{color:var(--band-ink-2);font-weight:400}
+.curate{font-size:16px;color:#ffffff;margin:0;text-align:center}
+
+/* Section bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--rule-strong)}
+.bar nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.bar nav::-webkit-scrollbar{display:none}
+.bar a{flex:none;text-decoration:none;font-size:14px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:12px 10px;color:var(--ink-2);border-bottom:3px solid transparent;margin-bottom:-2px}
+.bar a:hover{color:var(--ink)}
+.navwrap{position:relative}
+.nav-arrow{position:absolute;top:0;bottom:0;z-index:2;width:40px;border:0;background:var(--bg);color:var(--ink);font-size:26px;line-height:1;cursor:pointer;padding:0}
+.nav-arrow.left{left:max(16px,env(safe-area-inset-left,0px));box-shadow:8px 0 8px -4px var(--bg)}
+.nav-arrow.right{right:max(16px,env(safe-area-inset-right,0px));box-shadow:-8px 0 8px -4px var(--bg)}
+.nav-arrow:hover{color:var(--accent)}
+.bar a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+main{padding-block:28px 64px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px}
+.span-8{grid-column:span 8}.span-4{grid-column:span 4}.span-12{grid-column:1/-1}.span-6{grid-column:span 6}
+@media (max-width:860px){.span-8,.span-4,.span-6{grid-column:1/-1}}
+.block{display:grid;gap:18px;min-width:0;align-content:start}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:2px solid var(--rule-strong);padding-top:10px;flex-wrap:wrap}
+.sec-head h2{font-family:var(--display);font-weight:400;font-size:34px;line-height:1;margin:0;letter-spacing:.02em;text-transform:uppercase}
+.sec-head p{margin:0;font-size:14px;color:var(--ink-2)}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 32px}
+.cols.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:860px){.cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.cols,.cols.two{grid-template-columns:1fr}}
+.tops{display:grid;gap:28px;align-content:start;min-width:0}
+
+/* Stories */
+.story{display:grid;gap:8px;align-content:start;min-width:0}
+.cols .story{border-top:1px solid var(--rule);padding-top:14px}
+.kicker{margin:0;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.kicker a{text-decoration:none}.kicker a:hover{text-decoration:underline}
+.kicker .where{color:var(--ink-2)}
+.story h3{margin:0;font-size:23px;line-height:1.2;font-weight:600;color:var(--navy);text-wrap:balance}
+.story.lead h3{font-family:var(--display);font-weight:400;font-size:clamp(40px,5.4vw,64px);line-height:.95;letter-spacing:.01em;text-transform:uppercase}
+.story.lead .summary{font-size:19px}
+.summary{margin:0;text-wrap:pretty}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:0;font-size:13px;color:var(--ink-2)}
+.tone{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor}
+.tone.positive{color:var(--accent)}
+.tone.mixed{color:var(--ink-2)}
+.tone.confronting{background:var(--flag-bg);color:var(--flag-ink);border-color:var(--flag-bg)}
+.actions{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;font-size:14px}
+.more-btn{font:inherit;font-size:14px;font-weight:500;background:none;border:0;padding:0;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.read{font-weight:500;color:var(--accent);text-underline-offset:3px}
+.more{display:grid;gap:10px;background:var(--panel);padding:16px 18px;font-size:15px}
+.more p{margin:0}
+.lbl{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-bottom:2px}
+.dog{font-weight:500}
+.sources{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.sources li{display:grid;gap:0}
+.sources small{color:var(--ink-2);font-size:13px}
+
+/* Glance */
+.glance{margin:0;padding:0;list-style:none;counter-reset:g;display:grid;gap:0}
+.glance li{counter-increment:g;display:grid;grid-template-columns:44px 1fr;gap:10px;padding:14px 0;border-top:1px solid var(--rule)}
+.glance li::before{content:counter(g);font-family:var(--display);font-size:38px;line-height:.9;color:var(--accent)}
+.glance li:first-child{border-top:0}
+.glance a{text-decoration:none}.glance a:hover{text-decoration:underline}
+.panel{background:var(--panel);padding:20px 22px;display:grid;gap:6px;align-content:start}
+.panel h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1;margin:0;text-transform:uppercase;letter-spacing:.02em}
+
+.side{display:grid;gap:20px;align-content:start;min-width:0}
+.pod{background:var(--pod-bg);color:#ffffff;padding:22px;display:grid;gap:10px}
+.pod h3{margin:0;font-size:19px;line-height:1.25;font-weight:600}
+.pod .lbl{color:rgba(255,255,255,.8);margin:0}
+.pod-lbl{display:flex;align-items:center;gap:6px}
+.pod h2{font-family:var(--display);font-weight:400;font-size:36px;line-height:1;margin:0;letter-spacing:.02em;text-transform:uppercase}
+.pod p{margin:0;font-size:15px;color:rgba(255,255,255,.85)}
+.pod .listen{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;font-weight:600}
+.pod a{color:#ffffff;text-underline-offset:3px}
+.adspot{display:grid;gap:6px;justify-items:center;text-align:center;padding:22px 20px;border:2px dashed var(--rule-strong);background:var(--panel)}
+.adspot p{margin:0}
+.ad-note{font-size:13px;color:var(--ink-2)}
+.adspot .ad-h{font-family:var(--display);font-size:28px;line-height:1.05;text-transform:uppercase;letter-spacing:.02em;text-wrap:balance}
+.addr{font-weight:600;user-select:all}
+.copy-btn{font:inherit;font-size:13px;font-weight:600;background:none;border:1px solid currentColor;color:var(--ink);padding:3px 9px;margin-left:8px;cursor:pointer}
+.pill{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;margin:2px 4px 2px 0;border:1px solid currentColor;white-space:nowrap}
+.pill.positive{color:var(--accent)}.pill.mixed{color:var(--ink-2)}.pill.confronting{background:var(--flag-bg);color:var(--flag-ink);border-color:var(--flag-bg)}
+.chg{font-variant-numeric:tabular-nums;white-space:nowrap}
+.floatnav{position:fixed;z-index:60;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(32px + env(safe-area-inset-bottom,0px));display:flex;gap:2px}
+.floatnav button{font:inherit;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;background:var(--navy);color:#ffffff;border:1px solid rgba(255,255,255,.6);padding:10px 14px;cursor:pointer}
+.floatnav button:hover{background:var(--blue)}
+.sub{display:grid;gap:12px;padding:22px;background:var(--band);color:#ffffff;align-content:start}
+.sub h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1;margin:0;text-transform:uppercase;letter-spacing:.02em}
+.sub p{margin:0;font-size:16px;line-height:1.45}
+.sub-text,.sub-act{display:grid;gap:10px;align-content:start}
+.sub.banner{background:var(--blue);color:#ffffff;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px 40px;padding:24px 28px}
+.sub.banner small{color:rgba(255,255,255,.85)}
+.sub.banner .sub-btn{background:#ffffff;color:var(--navy)}
+.sub.banner .sub-btn:hover{background:var(--soft-solid,#e6eeff)}
+@media (max-width:640px){.sub.banner{grid-template-columns:1fr}}
+.sub small{font-size:13px;color:rgba(255,255,255,.85)}
+.sub-btn{display:inline-block;justify-self:start;background:#ffffff;color:var(--navy);text-decoration:none;font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase;padding:12px 18px}
+.sub-btn:hover{background:var(--soft)}
+.pod,.panel,.sub,.adspot,.more,.warn{border-radius:10px}
+.sub-btn,.copy-btn{border-radius:6px}
+.floatnav button{border-radius:8px}
+.tone,.fd,.pill{border-radius:4px}
+.inbrief{border-top:2px solid var(--rule-strong);padding-top:12px;display:grid;gap:12px}
+.inbrief h2{margin:0;font-family:var(--display);font-weight:400;font-size:26px;line-height:1;text-transform:uppercase;letter-spacing:.02em}
+.inbrief ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
+.inbrief li{display:grid;gap:4px;padding:12px 0;border-top:1px solid var(--rule)}
+.inbrief li:nth-child(-n+2){border-top:0;padding-top:0}
+.inbrief a{font-weight:500;font-size:17px;line-height:1.3;text-decoration:none;text-wrap:balance}
+.inbrief a:hover{text-decoration:underline}
+@media (max-width:560px){.inbrief ul{grid-template-columns:1fr}.inbrief li:nth-child(2){border-top:1px solid var(--rule);padding-top:12px}}
+.more-link{font-weight:600;color:var(--accent);white-space:nowrap;text-underline-offset:3px}
+.warn{margin:0;padding:12px 16px;border-left:4px solid var(--flag-bg);overflow:hidden;background:var(--panel);font-size:15px}
+
+/* Tables */
+.tbl{overflow-x:auto;border-top:1px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:640px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--rule)}
+th{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+td.num{font-variant-numeric:tabular-nums;font-weight:600;font-size:18px}
+td a{text-decoration:none;font-weight:500}td a:hover{text-decoration:underline}
+.muted{color:var(--ink-2)}
+.stage{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.stage.trend{color:var(--accent)}.stage.pattern{color:var(--ink)}.stage.signal{color:var(--ink-2)}
+
+.dates{margin:0;padding:0;list-style:none;display:grid}
+.dates li{display:grid;grid-template-columns:minmax(130px,180px) 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--rule)}
+.dates time{font-family:var(--display);font-size:22px;line-height:1.1;color:var(--accent)}
+.plain{margin:0;padding-left:18px;display:grid;gap:10px}
+.plain li{padding-left:4px}
+
+.page-head{display:grid;gap:8px;max-width:760px}
+.page-head h1{font-family:var(--display);font-weight:400;font-size:clamp(48px,8vw,88px);line-height:.9;margin:0;text-transform:uppercase;letter-spacing:.01em}
+.page-head p{margin:0;font-size:18px;text-wrap:pretty}
+.prose{max-width:68ch;display:grid;gap:14px}
+.prose p,.prose h2{margin:0}
+.prose h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1;text-transform:uppercase;letter-spacing:.02em;margin-top:12px}
+dl.defs{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:8px 20px}
+dl.defs dt{font-weight:600}dl.defs dd{margin:0}
+@media (max-width:520px){dl.defs{grid-template-columns:1fr}dl.defs dd{margin-bottom:8px}}
+
+footer{--ink:#ffffff;--ink-2:rgba(255,255,255,.75);--rule:rgba(255,255,255,.2);--rule-strong:rgba(255,255,255,.6);--soft:rgba(255,255,255,.12);background:var(--navy);color:var(--ink)}
+footer .wrap{padding-block:40px 44px;display:grid;gap:32px}
+.foot-sub{min-width:0}
+.foot-about{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:16px 48px;align-items:start;padding-top:32px;border-top:1px solid var(--rule)}
+.social{display:flex;flex-wrap:wrap;gap:14px;margin-top:4px}
+.follow-h{margin-top:18px!important}
+.social a{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;color:#ffffff;opacity:.92}
+.social a:hover{opacity:1}
+.social svg{width:24px;height:24px}
+
+.foot-desc{display:grid;gap:10px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr) minmax(0,1fr);gap:28px 40px}
+.foot-links.foot-cats ul{display:block;columns:3;column-gap:24px}
+.foot-cats li{break-inside:avoid;margin-bottom:6px}
+@media (max-width:860px){.foot-about,.foot-grid{grid-template-columns:1fr}.foot-links.foot-cats ul{columns:2}}
+.foot-links h2{margin:0 0 12px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.foot-links h3{margin:0 0 8px;font-size:15px;font-weight:600}
+.foot-links ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:15px}
+.foot-links a{text-decoration:none}.foot-links a:hover{text-decoration:underline}
+footer .fm{font-family:var(--display);font-size:44px;line-height:.9;text-transform:uppercase;white-space:nowrap}
+@media (max-width:520px){footer .fm{font-size:34px;white-space:normal}}
+footer p{margin:0;max-width:70ch;font-size:15px;color:var(--ink)}
+footer a{color:var(--ink)}
+
+
+/* Trends (front) */
+.tlist{margin:0;padding:0;list-style:none;display:grid}
+.tlist li{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--rule)}
+.arrow{font-size:34px;line-height:1;font-weight:500;color:var(--accent);text-align:center}
+.tname{font-weight:600}
+.tline{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13px;margin:4px 0 2px}
+.fd{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor}
+.fd.good{color:var(--accent)}.fd.mixed{color:var(--ink-2)}.fd.bad{background:var(--flag-bg);color:var(--flag-ink);border-color:var(--flag-bg)}
+.tctx{margin:0;font-size:15px}
+.key{margin:0;font-size:13px;color:var(--ink-2)}
+/* Petitions */
+.plist{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px}
+@media (max-width:860px){.plist{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.plist{grid-template-columns:1fr}}
+.plist li{display:grid;gap:4px;padding:14px 0;border-top:1px solid var(--rule)}
+.plist a{font-weight:500;text-underline-offset:3px}
+.sig{font-family:var(--display);font-size:30px;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.pmeta{font-size:13px;color:var(--ink-2)}
+/* Disclaimer */
+.disclaimer{max-width:none!important;font-size:13px!important;color:var(--ink-2)!important;border-top:1px solid var(--rule);padding-top:16px}
+@media (max-width:520px){body{font-size:16px}.story h3{font-size:20px}.dates li{grid-template-columns:1fr;gap:4px}}
+/* Edition picker strip under the category bar */
+.edbar{background:var(--bg);border-bottom:1px solid var(--rule)}
+.edbar .wrap{display:flex;justify-content:flex-end;align-items:center;padding-block:10px}
+.edbar label{display:flex;gap:8px;align-items:center;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.edbar select{font:inherit;font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--navy);background:var(--soft);border:1px solid var(--rule);border-radius:6px;padding:5px 10px;max-width:72vw;cursor:pointer}
+/* Mobile masthead: centred logo, balanced strapline, date underneath */
+@media (max-width:640px){
+  .mast .wrap{padding-block:10px 26px;gap:0}
+  .mast-top{display:contents}
+  .logo{order:1;padding-block:22px 16px}
+  .curate{order:2;max-width:none;margin:4px auto 0;white-space:nowrap;font-size:min(15px,4vw);line-height:1.45}
+  #pubdate{order:3;justify-self:center;margin-top:14px;font-size:13px;color:var(--band-ink-2)}
+  .edbar .wrap{justify-content:center;padding-block:8px}
+  /* Mobile only: edition picker sits above the blue masthead */
+  body{display:flex;flex-direction:column}
+  body > header, body > .bar, body > .edbar, body > main, body > footer{width:100%}
+  .edbar{order:-1;border-bottom:0}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top">
+      <span id="pubdate"></span>
+    </div>
+    <div class="logo">
+      <h1 class="wordmark">Just a Dog Weekly</h1>
+      <div class="brand">A Goofles Media project</div>
+    </div>
+    <p class="curate">Your weekly round-up of dog news.</p>
+  </div>
+</header>
+
+<div class="bar"><div class="wrap navwrap"><button type="button" class="nav-arrow left" id="nav-left" aria-label="Scroll categories left" hidden>‹</button><nav id="nav" aria-label="Categories"></nav><button type="button" class="nav-arrow right" id="nav-right" aria-label="Scroll categories right" hidden>›</button></div></div>
+
+<div class="edbar"><div class="wrap"><label for="edition">Edition <select id="edition"></select></label></div></div>
+
+<main class="wrap" id="view" tabindex="-1"></main>
+
+<div class="floatnav" id="floatnav" hidden>
+  <button type="button" id="fn-home">← Home</button>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div id="foot-sub" class="foot-sub"></div>
+    <div class="foot-grid">
+      <nav class="foot-links" aria-labelledby="fm-h"><h2 id="fm-h">More</h2><ul>
+        <li><a href="#front">Home</a></li><li><a href="#trends">Trends and predictions</a></li><li><a href="#petitions">Petitions</a></li><li><a href="#about">About</a></li>
+      </ul></nav>
+      <nav class="foot-links foot-cats" aria-labelledby="fc-h"><h2 id="fc-h">News categories</h2><ul id="foot-cats"></ul></nav>
+      <div class="foot-links"><h2>Listen</h2><h3>Just a Dog Podcast</h3><div class="social" id="foot-listen" aria-label="Listen"></div><h3 class="follow-h">Follow</h3><div class="social" id="foot-social"></div></div>
+    </div>
+    <div class="foot-about">
+      <div class="fm">Just a Dog Weekly</div>
+      <div class="foot-desc">
+        <p>A curated weekly round-up of dog-centred news from trusted sources: new laws, the latest research, rescue, health and the petitions you can sign. No sponsored stories, no agenda and no product pushing. Every story belongs to the outlet that reported it, and links to it.</p>
+        <p>Curated by Goofles Media, home of Just a Dog Podcast.</p>
+      </div>
+    </div>
+    <p class="disclaimer"><strong>Disclaimer.</strong> We summarise reporting by other organisations and link to the originals wherever possible. They are responsible for their own reporting, and including a story or petition doesn't mean we endorse it. We check stories when we add them, but details can change, so check the original before relying on it. Nothing here is veterinary, legal or behavioural advice. If you're worried about your dog, speak to a vet. If a dog is in danger, contact the police. Spotted a mistake? Tell us and we'll correct it.</p>
+  </div>
+</footer>
+
+<!-- DATA: edit this JSON block to publish a new edition. Editions are newest first. -->
+<script type="application/json" id="dw-data">
+{
+ "beats": [
+  {
+   "id": "law",
+   "name": "Law & government",
+   "blurb": "New laws, consultations, debates and petitions across the UK's four nations, and moves abroad that could follow here."
+  },
+  {
+   "id": "welfare",
+   "name": "Welfare & campaigns",
+   "blurb": "Charity campaigns, reports, policy positions, wins and setbacks."
+  },
+  {
+   "id": "breeding",
+   "name": "Breeding & puppies",
+   "blurb": "Licensing, puppy farms, imports, fertility services and the puppy trade."
+  },
+  {
+   "id": "rescue",
+   "name": "Rescue",
+   "blurb": "Rehoming, waiting lists, dogs given up, and the charities that take them in."
+  },
+  {
+   "id": "vets",
+   "name": "Vets & health",
+   "blurb": "Vet costs and regulation, disease, medicines, insurance and new treatments."
+  },
+  {
+   "id": "science",
+   "name": "Science",
+   "blurb": "New research on dogs' behaviour, minds, health, genetics and welfare."
+  },
+  {
+   "id": "food",
+   "name": "Food",
+   "blurb": "Pet food, recalls, labelling and who writes the rules."
+  },
+  {
+   "id": "consumer",
+   "name": "Shopping & ads",
+   "blurb": "Products, brands, advertising claims, spending and the pet industry."
+  },
+  {
+   "id": "crime",
+   "name": "Crime & courts",
+   "blurb": "Cruelty cases, theft, attacks, scams and court rulings."
+  },
+  {
+   "id": "training",
+   "name": "Training",
+   "blurb": "Training methods, aversive tools and who can call themselves a trainer or behaviourist."
+  },
+  {
+   "id": "working",
+   "name": "Working dogs",
+   "blurb": "Racing, gun dogs, police, assistance and show dogs."
+  },
+  {
+   "id": "culture",
+   "name": "Life with dogs",
+   "blurb": "Renting, work, travel, public spaces, money, media and grief."
+  },
+  {
+   "id": "environment",
+   "name": "Environment",
+   "blurb": "Flea treatments in rivers, food footprints, heat and waste."
+  },
+  {
+   "id": "world",
+   "name": "Around the world",
+   "blurb": "Dog welfare news from outside the UK."
+  },
+  {
+   "id": "other",
+   "name": "Other",
+   "blurb": "Stories that touch dogs' lives but don't fit a section yet."
+  }
+ ],
+ "editions": [
+  {
+   "id": "2026-10-25",
+   "label": "Week to 25 October 2026",
+   "published": "2026-10-25",
+   "covers": "First edition: September to 25 October 2026",
+   "lead": "vets-cma-order",
+   "glance": [
+    {
+     "text": "Vet price rules are now law in the UK. Large vet groups must publish prices from December.",
+     "story": "vets-cma-order"
+    },
+    {
+     "text": "From 1 November, children under 12 must not be left with XL bullies and other banned-type dogs without an adult.",
+     "story": "xl-bully-child-rule"
+    },
+    {
+     "text": "Northern Ireland plans to end third-party puppy sales, the last UK nation to do so.",
+     "story": "ni-lucys-law"
+    },
+    {
+     "text": "The RSPCA say cases with 10 or more animals in one home are running above last year's record.",
+     "story": "rspca-multi-animal-rise"
+    },
+    {
+     "text": "In a small US study, trainers who gave up punishment say seeing dogs' fear made them rethink.",
+     "story": "trainers-switch-methods"
+    }
+   ],
+   "quiet": {
+    "environment": "No new environment stories this week. See the trend on flea treatments and rivers.",
+    "other": "Nothing this week.",
+    "working": "No new working dog stories this week. See the trend on greyhound racing in Wales and Scotland."
+   },
+   "signals": [
+    {
+     "text": "Holders of some XL bully certificates in England and Wales can now ask online for them to be withdrawn if they think their dog isn't an XL bully. Watch how many do, and what happens to those dogs.",
+     "link": {
+      "label": "Read the story",
+      "story": "xl-bully-child-rule"
+     }
+    },
+    {
+     "text": "A UK Parliament petition opened on 20 October asks for a ban on shock and prong collars, as a US study finds empathy and education moved trainers towards rewards.",
+     "link": {
+      "label": "Read the story",
+      "story": "trainers-switch-methods"
+     }
+    },
+    {
+     "text": "Vets estimate 1 in 7 clients now use AI for their animals' care, often to self-diagnose. Watch for rules on AI in vet practice.",
+     "link": {
+      "label": "Read the story",
+      "story": "bva-ai-toolkit"
+     }
+    },
+    {
+     "text": "Battersea says a dog's size shapes how quickly they find a home. Watch for size bias in other rescues' data.",
+     "link": {
+      "label": "Read the story",
+      "story": "battersea-big-dogs"
+     }
+    }
+   ],
+   "blindspots": [
+    {
+     "text": "Dogs bred for research make the news mostly when activists act. There's little regular reporting on how many dogs are used, or why.",
+     "link": {
+      "label": "Read the story",
+      "story": "mbr-acres-raid"
+     }
+    },
+    {
+     "text": "The new child rule for banned-type dogs starts in a week, with little coverage of how families with exempt dogs will manage it.",
+     "link": {
+      "label": "Read the story",
+      "story": "xl-bully-child-rule"
+     }
+    },
+    {
+     "text": "Shopping and advertising coverage this week came mainly from brands and trade press, with little independent reporting.",
+     "link": {
+      "label": "See Shopping & ads",
+      "page": "consumer"
+     }
+    }
+   ],
+   "top": [
+    "vets-cma-order",
+    "ni-lucys-law",
+    "rspca-multi-animal-rise"
+   ]
+  }
+ ],
+ "stories": [
+  {
+   "id": "vets-cma-order",
+   "edition": "2026-10-25",
+   "beat": "vets",
+   "beats": [
+    "vets",
+    "consumer",
+    "law"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Vet price rules are now law, with the first changes due in December",
+   "summary": "The Competition and Markets Authority, which oversees competition in the UK, published their order on vet services on 22 September. It makes the changes from their vets investigation legally binding. Large vet businesses, those with 15 or more practices, must publish prices, pet care plan details and cremation prices by 22 December 2026. Smaller practices follow by 22 March 2027.",
+   "forDog": "Clearer prices could mean fewer guardians put off vet care because they don't know what it will cost. The rules don't make care cheaper on their own.",
+   "tone": "positive",
+   "status": "Developing",
+   "weight": "High",
+   "confidence": "Confirmed",
+   "date": "2026-09-22",
+   "reported": "2026-09-22",
+   "involved": "Competition and Markets Authority (regulator). Royal College of Veterinary Surgeons (RCVS, the vets' regulator), which will help monitor the rules. Vet businesses, which must comply.",
+   "watch": "December 2026, when large vet groups must publish their prices. Caps on prescription fees start in March 2027 for large groups. Written estimates and itemised bills follow in June 2027. Smaller practices must do all of this by September 2027.",
+   "trend": "vet-price-transparency",
+   "sources": [
+    {
+     "outlet": "Royal College of Veterinary Surgeons",
+     "title": "RCVS responds to publication of CMA Order",
+     "url": "https://www.rcvs.org.uk/about-us/news-and-views/news/rcvs-responds-to-publication-of-cma-order",
+     "date": "2026-09-22",
+     "grade": "A"
+    },
+    {
+     "outlet": "Competition and Markets Authority",
+     "title": "Veterinary Services Market Investigation Order 2026",
+     "url": "https://www.gov.uk/government/publications/veterinary-services-market-investigation-order-2026-and-veterinary-services-market-investigation-royal-college-of-veterinary-surgeons-undertakings-202",
+     "date": "2026-09-22",
+     "grade": "A"
+    },
+    {
+     "outlet": "Competition and Markets Authority",
+     "title": "The Veterinary Services Market Investigation Order 2026",
+     "url": "https://assets.publishing.service.gov.uk/media/6ab237c14c0f475de0a66b27/__Veterinary_Services_Market_Investigation_Order_2026__.pdf",
+     "date": "2026-09-22",
+     "grade": "A",
+     "note": "The Order itself, with the deadlines and the £21.40 prescription fee cap."
+    },
+    {
+     "outlet": "Agilio Software",
+     "title": "What the CMA final decision means for independent vet practices",
+     "url": "https://agiliosoftware.com/veterinary/insights/cma-final-decision/",
+     "date": "2026-03-24",
+     "grade": "C",
+     "note": "A software company for vet practices. Used for background on the March 2026 final decision. The final Order sets the prescription fee cap at £21.40."
+    }
+   ]
+  },
+  {
+   "id": "korea-dog-meat-farms",
+   "edition": "2026-10-25",
+   "beat": "world",
+   "beats": [
+    "world",
+    "welfare",
+    "law"
+   ],
+   "where": "South Korea",
+   "region": "world",
+   "headline": "87% of South Korea's dog meat farms have closed ahead of February ban",
+   "summary": "South Korea's agriculture ministry says 198 of the 1,537 registered dog meat farms were still running in late September. Closures are running ahead of the government's plan. The ban on breeding, slaughtering and selling dogs for meat starts on 7 February 2027.",
+   "forDog": "In August 2024, about 468,000 dogs were kept on these farms. An estimated 7,600 dogs remain on farms still running, and local councils have been asked to plan their care based on each dog's breed, size, age and sociability.",
+   "tone": "positive",
+   "status": "Developing",
+   "weight": "High",
+   "confidence": "Reported",
+   "date": "2026-10-11",
+   "reported": "2026-10-11",
+   "involved": "South Korea's Ministry of Agriculture, Food and Rural Affairs. Local governments. Remaining farmers.",
+   "watch": "Special inspections from November to December 2026, and the ban starting on 7 February 2027.",
+   "trend": "korea-dog-meat-ban",
+   "sources": [
+    {
+     "outlet": "The Korea Times",
+     "title": "87% of dog meat farms closed ahead of February ban",
+     "url": "https://www.koreatimes.co.kr/business/companies/20261011/87-of-dog-meat-farms-closed-ahead-of-february-ban",
+     "date": "2026-10-11",
+     "grade": "B"
+    },
+    {
+     "outlet": "The Herald Business",
+     "title": "87% of dog meat farms shut down ahead of full ban next year",
+     "url": "https://biz.heraldcorp.com/article/10898576",
+     "date": "2026-10-11",
+     "grade": "B",
+     "note": "Second report of the same ministry figures, in Korean."
+    }
+   ]
+  },
+  {
+   "id": "bangor-breed-bans",
+   "edition": "2026-10-25",
+   "beat": "law",
+   "beats": [
+    "law",
+    "crime",
+    "training"
+   ],
+   "where": "Wales",
+   "region": "uk",
+   "headline": "Breed bans don't tackle why dogs bite, Bangor University researchers argue",
+   "summary": "A study led by criminology lecturer Lisa Sparkes at Bangor University looks at the Dangerous Dogs Act 1991 and breed stigma. It argues that banning breeds such as the XL bully doesn't address the causes of dog attacks, and that the law should focus on irresponsible ownership, training and socialisation rather than a dog's breed or appearance.",
+   "forDog": "Under the current law, a dog's looks can decide whether they count as a banned type. Their family then needs an exemption certificate to keep them. The research argues that a dog's care and upbringing matter more than their breed.",
+   "tone": "mixed",
+   "status": "New",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-10-23",
+   "reported": "2026-10-23",
+   "involved": "Bangor University researchers. The UK government, which sets dangerous dogs law in England and Wales.",
+   "watch": "Where the full paper is published, and whether it has been peer reviewed.",
+   "trend": "breed-laws-questioned",
+   "sources": [
+    {
+     "outlet": "Nation.Cymru",
+     "title": "Targeting XL Bully won't solve dog aggression, new study warns",
+     "url": "https://nation.cymru/news/targeting-xl-bully-wont-solve-dog-aggression-new-study-warns/",
+     "date": "2026-10-23",
+     "grade": "B"
+    },
+    {
+     "outlet": "UK government (Defra)",
+     "title": "Ban on XL Bully dogs",
+     "url": "https://www.gov.uk/guidance/ban-on-xl-bully-dogs",
+     "date": "2026-10-01",
+     "grade": "A",
+     "note": "Used for how the current law and exemption certificates work."
+    }
+   ]
+  },
+  {
+   "id": "rvc-cost-of-living",
+   "edition": "2026-10-25",
+   "beat": "science",
+   "beats": [
+    "science",
+    "culture",
+    "vets",
+    "training"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Cost of living hit guardians' own lifestyles more than their dogs' care, but some cut back on training and vet visits",
+   "summary": "Royal Veterinary College researchers surveyed 770 people who got puppies during the pandemic. The study was published in August in the journal Animals. About 1 in 3 said the cost of living had hit their household, and about 1 in 8 said it had affected how they cared for their dog. Almost three times as many said it had affected their own lifestyle as said it had affected their dog's care.",
+   "forDog": "About 1 in 5 of those asked about training reported potentially negative changes, such as cancelling classes or being less likely to seek professional help. About 1 in 7 of those whose dog had a recent health problem reported potentially negative changes in how they sought vet care, such as delaying appointments.",
+   "tone": "mixed",
+   "status": "New",
+   "weight": "Medium",
+   "confidence": "Confirmed",
+   "date": "2026-08-24",
+   "reported": "2026-10-13",
+   "involved": "Royal Veterinary College (RVC), Pandemic Puppies research programme. Funded by Battersea, the animal welfare charity.",
+   "watch": "Whether newer data, collected after 2024, shows the same pattern.",
+   "trend": "cost-of-living-dog-care",
+   "sources": [
+    {
+     "outlet": "Animals (journal)",
+     "title": "Impacts of the 'Cost-of-Living Crisis' on UK-Based Owners of Pandemic Puppies",
+     "url": "https://www.mdpi.com/2076-2615/16/17/2656",
+     "date": "2026-08-24",
+     "grade": "A",
+     "note": "The peer-reviewed study."
+    },
+    {
+     "outlet": "Dogs Today",
+     "title": "Dog owners cut back on themselves to protect pets from cost-of-living crisis",
+     "url": "https://dogstodaymagazine.co.uk/2026/10/13/dog-owners-cut-back-on-themselves-to-protect-pets-from-cost-of-living-crisis/",
+     "date": "2026-10-13",
+     "grade": "B",
+     "note": "The survey ran from November 2022 to January 2024."
+    }
+   ]
+  },
+  {
+   "id": "battersea-big-dogs",
+   "edition": "2026-10-25",
+   "beat": "rescue",
+   "beats": [
+    "rescue",
+    "culture"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Big dogs wait longer for a home, Battersea says",
+   "summary": "Battersea says big dogs in their care wait on average 16% longer to be rehomed. In a survey they commissioned, just over half of Londoners described big dogs as loyal (56%) and affectionate (51%), yet nearly half (49%) said they wouldn't consider one. The figures are for Londoners within a Censuswide survey of 2,000 UK adults, and the release doesn't give the UK-wide results.",
+   "forDog": "German Shepherds, greyhounds and huskies are among the dogs Battersea says get overlooked. A dog's size says little about their character, but it shapes how long they wait.",
+   "tone": "mixed",
+   "status": "New",
+   "weight": "Low",
+   "confidence": "Claimed",
+   "date": "2026-10-07",
+   "reported": "2026-10-07",
+   "involved": "Battersea Dogs & Cats Home, which rehomes dogs and ran the survey through Censuswide.",
+   "watch": "Whether other rescues see the same gap for bigger dogs.",
+   "sources": [
+    {
+     "outlet": "Battersea",
+     "title": "Half of Londoners think big dogs are affectionate but Battersea says larger breeds are being overlooked",
+     "url": "https://www.battersea.org.uk/about-us/press/press-releases/large-dogs-overlooked",
+     "date": "2026-10-07",
+     "grade": "C",
+     "note": "The charity's own press release and survey."
+    }
+   ]
+  },
+  {
+   "id": "rspca-cumbria-collies",
+   "edition": "2026-10-25",
+   "beat": "crime",
+   "beats": [
+    "crime",
+    "welfare"
+   ],
+   "where": "England",
+   "region": "uk",
+   "headline": "21 collies found in stacked crates in a van; the person keeping them banned from keeping animals for life",
+   "summary": "Police seized 21 pedigree collies and a cat from a van and caravan in a car park in Barrow-in-Furness, Cumbria, in July 2025. The dogs were in metal crates stacked three high with no bedding. At sentencing on 25 September 2026, the person keeping them was banned from keeping animals for life and given a suspended prison sentence.",
+   "forDog": "Ten dogs were emaciated. A vet said they had not had enough food, and all the dogs were extremely anaemic, which would have taken several months to develop. Twenty of the dogs and the cat have been rehomed. One collie was put to sleep on vet advice.",
+   "tone": "confronting",
+   "status": "Resolved",
+   "weight": "Medium",
+   "confidence": "Claimed",
+   "date": "2026-09-25",
+   "reported": "2026-10-08",
+   "involved": "RSPCA, which brought the case. Cumbria Police. Animal Rescue Cumbria.",
+   "watch": "",
+   "trend": "large-neglect-cases",
+   "sources": [
+    {
+     "outlet": "RSPCA",
+     "title": "Twenty one dogs and a cat found living in filthy crates in Cumbria",
+     "url": "https://www.rspca.org.uk/w/whatwedo/press/twenty-one-dogs-and-a-cat-found-living-in-filthy-crates-in-cumbria",
+     "date": "2026-10-08",
+     "grade": "C",
+     "note": "The RSPCA's own release about their own prosecution."
+    }
+   ]
+  },
+  {
+   "id": "mbr-acres-raid",
+   "edition": "2026-10-25",
+   "beat": "crime",
+   "beats": [
+    "crime",
+    "science",
+    "welfare"
+   ],
+   "where": "England",
+   "region": "uk",
+   "headline": "Police investigate after puppies are taken from a beagle breeding site that supplies labs",
+   "summary": "A number of puppies were taken from MBR Acres near Huntingdon, Cambridgeshire, on the night of 29 September, according to police. The site breeds beagles for scientific research. Cambridgeshire Police are treating it as a burglary and have made arrests. No one has been charged.",
+   "forDog": "Campaigners say about 2,000 beagles are bred at the site each year and go to labs at about 16 weeks old. In April, MPs debated a petition to end testing on dogs. Several who spoke backed Herbie's Law, a proposal to replace animals in research, which the campaign says has the support of more than 170 MPs and peers. The government did not commit to making it law, and pointed to their existing strategy on replacing animals in science.",
+   "tone": "confronting",
+   "status": "Developing",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-09-29",
+   "reported": "2026-10-08",
+   "involved": "MBR Acres, owned by Marshall BioResources. Cambridgeshire Police. Campaigners against dogs in research.",
+   "watch": "Whether anyone is charged, and any government move on Herbie's Law.",
+   "trend": "dogs-in-research",
+   "sources": [
+    {
+     "outlet": "SWNS",
+     "title": "Animal-rights protester arrested following puppy raid at biomedical centre",
+     "url": "https://discover.swns.com/2026/10/animal-rights-protester-arrested-following-puppy-raid-at-biomedical-centre/",
+     "date": "2026-10-08",
+     "grade": "B"
+    },
+    {
+     "outlet": "Animal Free Research UK",
+     "title": "Momentum builds for Herbie's Law as MPs debate banning dog experiments",
+     "url": "https://www.animalfreeresearchuk.org/momentum-builds-for-herbies-law-as-mps-debate-banning-dog-experiments/",
+     "date": "2026-04-30",
+     "grade": "C",
+     "note": "A campaign group for ending animal research. Used for the April debate."
+    }
+   ]
+  },
+  {
+   "id": "ireland-xl-inquest",
+   "edition": "2026-10-25",
+   "beat": "world",
+   "beats": [
+    "world",
+    "crime",
+    "law"
+   ],
+   "where": "Ireland",
+   "region": "world",
+   "headline": "Inquest hears how a woman was killed by her XL bully in County Limerick",
+   "summary": "An inquest into a fatal dog attack in June 2024 returned a verdict of misadventure. Armed gardaí shot the XL bully involved. Prosecutors decided no one would be charged. Since February 2025, it has been illegal in Ireland to own an XL bully without a certificate of exemption.",
+   "forDog": "Ireland brought in XL bully restrictions after this death. They now shape the lives of every dog of that type there.",
+   "tone": "confronting",
+   "status": "Resolved",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-10-06",
+   "reported": "2026-10-06",
+   "involved": "Limerick Coroner's Court. An Garda Síochána (Irish police). Ireland's government, which introduced the XL bully rules.",
+   "watch": "",
+   "trend": "breed-laws-questioned",
+   "sources": [
+    {
+     "outlet": "The Irish Times",
+     "title": "Armed gardaí shot XL Bully dog four times after it attacked and killed owner, inquest told",
+     "url": "https://www.irishtimes.com/crime-law/courts/2026/10/06/armed-gardai-shot-xl-bully-dog-four-times-after-it-attacked-and-killed-owner-inquest-told/",
+     "date": "2026-10-06",
+     "grade": "B"
+    }
+   ]
+  },
+  {
+   "id": "rspca-multi-animal-rise",
+   "edition": "2026-10-25",
+   "beat": "rescue",
+   "beats": [
+    "rescue",
+    "welfare",
+    "crime"
+   ],
+   "where": "England and Wales",
+   "region": "uk",
+   "headline": "RSPCA say cases with 10 or more animals at one home are running above last year's record",
+   "summary": "The RSPCA say they dealt with 3,280 cases involving 10 or more animals at one address in England and Wales so far in 2026, about 410 a month, against about 355 a month in 2025, when there were more than 4,200. The charity say these cases rose by about 70% between 2021 and 2025. They have more animals in their care than space in their centres, with more than 1,000 animals waiting in private boarding.",
+   "forDog": "Many animals from these homes arrive with behavioural and medical needs, and with centres full they wait longer for care and a new home. The RSPCA links the rise to poor breeding practices and to guardians overwhelmed by mental health or money problems.",
+   "tone": "confronting",
+   "status": "Developing",
+   "weight": "Medium",
+   "confidence": "Claimed",
+   "date": "2026-10-05",
+   "reported": "2026-10-05",
+   "involved": "RSPCA, who collected the figures from their own case records and are running their Adoptober rehoming appeal.",
+   "watch": "Whether the RSPCA publishes the full figures and explains how they count a case. Their full-year numbers for 2026.",
+   "trend": "large-neglect-cases",
+   "sources": [
+    {
+     "outlet": "Carmarthenshire News Online",
+     "title": "RSPCA Cymru appeals for help as multi-animal cases rise",
+     "url": "https://www.carmarthenshirenewsonline.com/nationalnews/rspca-cymru-appeals-for-help-as-multi-animal-cases-rise/",
+     "date": "2026-10-05",
+     "grade": "B",
+     "note": "Includes figures for Wales: 241 cases from January to August 2026, against 344 in all of 2025."
+    },
+    {
+     "outlet": "Companion Life",
+     "title": "Capacity crisis: RSPCA overwhelmed with multi-animal cases, issues urgent plea",
+     "url": "https://www.companionlife.co.uk/capacity-crisis-rspca-overwhelmed-with-multi-animal-cases-issues-urgent-plea/",
+     "date": "2026-10-06",
+     "grade": "B"
+    },
+    {
+     "outlet": "RSPCA",
+     "title": "Shocking multi-animal welfare image is not AI-generated",
+     "url": "https://www.rspca.org.uk/w/whatwedo/press/shocking-multi-animal-welfare-image-ai-generated",
+     "date": "2026-05-12",
+     "grade": "C",
+     "note": "The charity's own release, used for the 2021 to 2025 rise and the 4,200 cases in 2025."
+    }
+   ]
+  },
+  {
+   "id": "years-dry-eye-update",
+   "edition": "2026-10-25",
+   "beat": "food",
+   "beats": [
+    "food",
+    "vets",
+    "consumer"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Cause of sudden dry eye in dogs still unknown, as pet food trade body says the regulator found no evidence of a safety risk",
+   "summary": "On 17 August, the fresh dog food company Years recalled their fresh meals after reports of dogs suddenly getting dry eye in both eyes. UK Pet Food, the trade body for pet food makers, updated their guidance on 20 October. They say the Food Standards Agency (FSA) found no evidence of a food safety risk and have no further action planned. The British Association of Veterinary Ophthalmologists (BrAVO), the group for specialist eye vets, had more than 200 reported cases to look into by late September, and says not all the dogs ate the same food.",
+   "forDog": "Dry eye can be painful and, left untreated, can harm a dog's sight. Eye specialists say some dogs may have lasting damage to their tear glands, so a change of food alone may not fix it, and prescribed eye treatment shouldn't be stopped without a vet's advice.",
+   "tone": "mixed",
+   "status": "Developing",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-10-20",
+   "reported": "2026-10-20",
+   "involved": "Years, the pet food company, who say their own testing found no link to their food. Food Standards Agency (the regulator). BrAVO, running an independent study using reports from vets. UK Pet Food (the trade body).",
+   "watch": "BrAVO's findings, once their data has been checked. They haven't given a date. Also whether Years restart deliveries, as they said they would in October.",
+   "sources": [
+    {
+     "outlet": "UK Pet Food",
+     "title": "Years pet food recall: information for pet owners",
+     "url": "https://www.ukpetfood.org/resource/years-pet-food-recall-information-for-pet-owners.html",
+     "date": "2026-10-20",
+     "grade": "C",
+     "note": "The trade body for UK pet food makers. Used for the FSA's position."
+    },
+    {
+     "outlet": "British Association of Veterinary Ophthalmologists",
+     "title": "BrAVO statement on reports of acute bilateral dry eye in dogs",
+     "url": "https://bravo.org.uk/2026/09/23/2111/",
+     "date": "2026-09-23",
+     "grade": "B"
+    },
+    {
+     "outlet": "STV News",
+     "title": "Investigation into serious eye issues in dogs continues",
+     "url": "https://news.stv.tv/world/investigation-into-serious-eye-issues-in-dogs-continues",
+     "date": "2026-09-26",
+     "grade": "B"
+    },
+    {
+     "outlet": "Just Food",
+     "title": "Years resume dog food deliveries",
+     "url": "https://www.just-food.com/newsletters/years-resume-dog-food-deliveries",
+     "date": "2026-09-23",
+     "grade": "B",
+     "note": "Years said in September they planned to resume orders in October, without buckwheat."
+    }
+   ]
+  },
+  {
+   "id": "fda-convenia-rtu",
+   "edition": "2026-10-25",
+   "beat": "vets",
+   "beats": [
+    "vets",
+    "world"
+   ],
+   "where": "United States",
+   "region": "world",
+   "headline": "US regulator approves a ready-to-use antibiotic injection for dogs' skin infections",
+   "summary": "The US Food and Drug Administration (FDA) approved a new version of the antibiotic injection Convenia on 20 October. It's made by Zoetis, an animal medicines company. The new version comes ready to use and is twice as concentrated as the original, so the same dose comes in a smaller injection. The original has been approved for dogs and cats since 2008. The new version is approved for dogs only, because some of its other ingredients may be toxic to cats.",
+   "forDog": "Zoetis say one injection gives up to 14 days of antibiotic treatment. They say it's designed for dogs of all sizes, but the smaller injection volume should particularly help medium and large dogs. The approval covers the US only.",
+   "tone": "positive",
+   "status": "New",
+   "weight": "Low",
+   "confidence": "Confirmed",
+   "date": "2026-10-20",
+   "reported": "2026-10-20",
+   "involved": "US Food and Drug Administration (regulator). Zoetis, which makes and sells the medicine.",
+   "watch": "Zoetis expect it to reach vets in the first quarter of 2027. Also whether they seek approval for the new version in the UK.",
+   "sources": [
+    {
+     "outlet": "US Food and Drug Administration",
+     "title": "FDA approves ready-to-use cefovecin injectable for treatment of certain skin infections in dogs",
+     "url": "https://www.fda.gov/animal-veterinary/cvm-updates/fda-approves-ready-use-cefovecin-injectable-treatment-certain-skin-infections-dogs",
+     "date": "2026-10-20",
+     "grade": "A"
+    },
+    {
+     "outlet": "Zoetis (via Investing News)",
+     "title": "Zoetis receives FDA approval for Convenia RTU for Dogs",
+     "url": "https://investingnews.com/zoetis-receives-fda-approval-for-convenia-r-rtu-for-dogs-helping-more-medium-and-large-dogs-access-single-injection-treatment/",
+     "date": "2026-10-20",
+     "grade": "C",
+     "note": "The company's own announcement. Used for the single-dose claim."
+    }
+   ]
+  },
+  {
+   "id": "ni-low-noise-fireworks",
+   "edition": "2026-10-25",
+   "beat": "welfare",
+   "beats": [
+    "welfare",
+    "culture"
+   ],
+   "where": "Northern Ireland",
+   "region": "uk",
+   "headline": "Northern Ireland's justice department holds up a council's switch to low-noise fireworks as Halloween nears",
+   "summary": "Antrim and Newtownabbey Borough Council has committed to low-noise fireworks at all future council-led and council-funded events, including at council venues that are hired out. Councillors backed the idea in January and agreed the details in May. Northern Ireland's Department of Justice highlighted the switch on 22 October, as they asked people to be considerate with fireworks over Halloween.",
+   "forDog": "Dogs Trust says almost half of all dogs react to fireworks. Low-noise fireworks still light up the sky, with fewer loud bangs.",
+   "tone": "positive",
+   "status": "Developing",
+   "weight": "Low",
+   "confidence": "Confirmed",
+   "date": "2026-05-11",
+   "reported": "2026-10-22",
+   "involved": "Northern Ireland's Department of Justice. Antrim and Newtownabbey Borough Council. Dogs Trust.",
+   "watch": "Whether other councils make the same switch before Bonfire Night and New Year.",
+   "sources": [
+    {
+     "outlet": "Department of Justice (Northern Ireland)",
+     "title": "Don't let Halloween be a noisy nightmare for people and pets - Minister",
+     "url": "https://justice-ni.gov.uk/news/dont-let-halloween-be-noisy-nightmare-people-and-pets-minister",
+     "date": "2026-10-22",
+     "grade": "A"
+    },
+    {
+     "outlet": "The Irish News",
+     "title": "Northern Ireland council to only use silent fireworks at events",
+     "url": "https://www.irishnews.com/news/northern-ireland-council-to-only-use-silent-fireworks-at-events-WXNJDI7LNFPBRGYYFVKOMF4CFU/",
+     "date": "2026-05-12",
+     "grade": "B"
+    }
+   ]
+  },
+  {
+   "id": "bva-fireworks",
+   "edition": "2026-10-25",
+   "beat": "vets",
+   "beats": [
+    "vets",
+    "law",
+    "welfare"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Vets call for tighter fireworks rules as the season begins",
+   "summary": "The British Veterinary Association (BVA) says the current rules on selling and using fireworks don't go far enough to protect animals. They say vets across the UK see hundreds of firework-related injuries every year, most commonly from animals hurting themselves in a panic. The Fireworks Impact Coalition, which the BVA belongs to, holds an event at Parliament on 4 November to call for change.",
+   "forDog": "Panting, drooling, restlessness, trying to escape and toileting indoors can all be signs a dog is frightened. The BVA suggests talking to a vet before fireworks season and giving dogs a safe, padded den.",
+   "tone": "mixed",
+   "status": "New",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-10-22",
+   "reported": "2026-10-22",
+   "involved": "British Veterinary Association, the UK vets' professional body. The Fireworks Impact Coalition.",
+   "watch": "The coalition's event at Parliament on 4 November, and any response from the government.",
+   "sources": [
+    {
+     "outlet": "The Havering Daily",
+     "title": "Fireworks displays might be fun for people, but can be extremely traumatic for pets, wildlife, and farm animals: Vets Urge Action As Firework Season Begins",
+     "url": "https://thehaveringdaily.co.uk/2026/10/22/fireworks-displays-might-be-fun-for-people-but-can-be-extremely-traumatic-for-pets-wildlife-and-farm-animals-vets-urge-action-as-firework-season-begins",
+     "date": "2026-10-22",
+     "grade": "B",
+     "note": "Reports the BVA's own statement."
+    }
+   ]
+  },
+  {
+   "id": "dogs-trust-scotland-breeds",
+   "edition": "2026-10-25",
+   "beat": "breeding",
+   "beats": [
+    "breeding",
+    "law",
+    "vets"
+   ],
+   "where": "Scotland",
+   "region": "uk",
+   "headline": "Dogs Trust warns of a welfare crisis in Scotland linked to how popular breeds are bred",
+   "summary": "Dogs Trust, the UK's largest dog charity, says they're seeing more dogs in pain because of how they were bred, especially flat-faced breeds like French bulldogs and pugs. In an open letter, they're asking the Scottish Government for stronger laws and better breeding licences. The Scottish Government say they're committed to animal welfare, and that a review found their 2020 law raising penalties for animal cruelty fit for purpose. They urge people to buy only from licensed breeders or to rehome.",
+   "forDog": "Flat-faced dogs can struggle to breathe because their airways are squeezed into a shorter face. One French bulldog at a Glasgow rehoming centre needed surgery with three different procedures to help him breathe, and will need pain relief for life.",
+   "tone": "mixed",
+   "status": "Developing",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-09-08",
+   "reported": "2026-09-08",
+   "involved": "Dogs Trust. The Scottish Government.",
+   "watch": "The Scottish Government's response to the open letter.",
+   "sources": [
+    {
+     "outlet": "STV News",
+     "title": "Charity warns of dog welfare 'crisis' in Scotland over popular breeds",
+     "url": "https://news.stv.tv/scotland/dogs-trust-warns-of-dog-welfare-crisis-in-scotland-over-popular-breeds",
+     "date": "2026-09-08",
+     "grade": "B"
+    }
+   ]
+  },
+  {
+   "id": "our-dogs-closes",
+   "edition": "2026-10-25",
+   "beat": "culture",
+   "beats": [
+    "culture",
+    "working",
+    "consumer"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Our Dogs, the show dog newspaper, closes after more than 130 years",
+   "summary": "Our Dogs, a weekly newspaper covering dog shows and breeds since 1895, has stopped publishing in print and online, with all 18 staff made redundant. In a statement, the paper pointed to falling advertising income, rising staff costs, the impact of the internet and the launch of a new Royal Kennel Club magazine. The final edition came out online on 18 September, and the closure was reported on 20 October.",
+   "forDog": "Our Dogs reported on the pedigree show world, from results to judges' comments on dogs. With it gone, more of that news may come from the Royal Kennel Club, who also set the rules for pedigree breeding and shows.",
+   "tone": "mixed",
+   "status": "Resolved",
+   "weight": "Low",
+   "confidence": "Reported",
+   "date": "2026-09-18",
+   "reported": "2026-10-20",
+   "involved": "Our Dogs. The Royal Kennel Club, who register pedigree dogs and run Crufts.",
+   "watch": "Who else reports independently on the show world.",
+   "sources": [
+    {
+     "outlet": "Press Gazette",
+     "title": "October 2026 journalism job cuts",
+     "url": "https://pressgazette.co.uk/news/journalism-job-cuts-in-2026-updates/",
+     "date": "2026-10-20",
+     "grade": "B",
+     "note": "The trade magazine for UK journalism. Reasons come from the paper's own statement."
+    }
+   ]
+  },
+  {
+   "id": "ni-lucys-law",
+   "edition": "2026-10-25",
+   "beat": "breeding",
+   "beats": [
+    "breeding",
+    "law",
+    "welfare"
+   ],
+   "where": "Northern Ireland",
+   "region": "uk",
+   "headline": "Northern Ireland moves to ban third-party puppy sales, the last UK nation to do so",
+   "summary": "Proposals for Northern Ireland's own version of Lucy's Law have been approved, the agriculture minister Andrew Muir said on 7 October. Dealers and other third-party sellers would no longer be able to sell puppies or kittens, so buyers would generally deal directly with the breeder and see the puppy with their mother. Adverts would need to show the puppy's age, location and a photo with their mother. The rules still have to go through the Northern Ireland Assembly, and the Department of Agriculture, Environment and Rural Affairs (DAERA) aims to bring them forward by the end of 2026.",
+   "forDog": "The minister says the ban will reduce the risk of disease and improve puppies' socialisation. The rules would stop puppies being sold before eight weeks old, and councils would enforce them.",
+   "tone": "positive",
+   "status": "Promised",
+   "weight": "High",
+   "confidence": "Confirmed",
+   "date": "2026-10-07",
+   "reported": "2026-10-07",
+   "involved": "DAERA and their minister, Andrew Muir. The Northern Ireland Assembly, which must pass the rules. Local councils, which would enforce them. The Northern Ireland Companion Animal Welfare Group, who welcomed the plans in February.",
+   "watch": "Whether the rules are laid before the Assembly by the end of 2026, and how long the lead-in period is.",
+   "trend": "puppy-trade-rules",
+   "sources": [
+    {
+     "outlet": "Department of Agriculture, Environment and Rural Affairs (Northern Ireland)",
+     "title": "Green light for Lucy's Law signals a turning point in the fight against puppy farming in Northern Ireland",
+     "url": "https://www.daera-ni.gov.uk/news/green-light-lucys-law-signals-turning-point-fight-against-puppy-farming-northern-ireland-muir",
+     "date": "2026-10-07",
+     "grade": "A"
+    },
+    {
+     "outlet": "Vet Times",
+     "title": "Northern Ireland to implement Lucy's Law",
+     "url": "https://www.vettimes.com/news/vets/small-animal-vets/northern-ireland-to-implement-lucys-law",
+     "date": "2026-02-19",
+     "grade": "B",
+     "note": "Background on the plans, and on England (2020), Scotland and Wales (2021) bringing in their bans first."
+    }
+   ]
+  },
+  {
+   "id": "microchip-single-search",
+   "edition": "2026-10-25",
+   "beat": "vets",
+   "beats": [
+    "vets",
+    "rescue",
+    "law"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Vets and rescues can now search five microchip databases in one go",
+   "summary": "The Association of Microchip Database Operators has launched a single search portal for pet microchip records. There are more than 20 separate microchip databases in the UK, and they don't share data. The first five to join include Petlog and PETtrac, which the operators say hold more than 90% of active registrations. Vets, rescues, councils and police can use it for free.",
+   "forDog": "When a lost or stray dog is scanned, finding their guardian can mean checking database after database, which the BVA says makes reuniting pets very difficult. One search should make that quicker.",
+   "tone": "positive",
+   "status": "Developing",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-10-15",
+   "reported": "2026-10-15",
+   "involved": "The Association of Microchip Database Operators, a group of the companies that run the databases. The British Veterinary Association (BVA), who called for a single search point two years ago.",
+   "watch": "Whether the remaining databases join, and whether the government makes joining compulsory.",
+   "trend": "lost-dogs-home",
+   "sources": [
+    {
+     "outlet": "British Veterinary Association",
+     "title": "Vets hail launch of centralised pet microchip portal",
+     "url": "https://www.bva.co.uk/news-and-blog/news-article/vets-hail-launch-of-centralised-pet-microchip-portal/",
+     "date": "2026-10-15",
+     "grade": "B"
+    },
+    {
+     "outlet": "Vet Times",
+     "title": "BVA hails microchip access 'win'",
+     "url": "https://www.vettimes.com/news/vets/small-animal-vets/bva-hails-microchip-access-win",
+     "date": "2026-10-19",
+     "grade": "B",
+     "note": "The 90% figure comes from the database operators."
+    }
+   ]
+  },
+  {
+   "id": "libromide-back",
+   "edition": "2026-10-25",
+   "beat": "vets",
+   "beats": [
+    "vets"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "An epilepsy medicine for dogs is back in stock after shortages",
+   "summary": "Libromide, a potassium bromide tablet used alongside phenobarbital, the usual first drug, for dogs whose epilepsy is hard to control, is available from wholesalers again. Its maker, the animal medicines company Dechra, has announced the return, Vet Times reported on 23 October. Guardians reported shortages online in several European countries last year and in the UK earlier this year, though these weren't independently confirmed.",
+   "forDog": "Dechra says up to 4 in 10 dogs with epilepsy can't be controlled with the first-choice drug alone. For those dogs, a gap in supply can mean more seizures, so steady stock matters.",
+   "tone": "positive",
+   "status": "Resolved",
+   "weight": "Low",
+   "confidence": "Reported",
+   "date": "2026-10-23",
+   "reported": "2026-10-23",
+   "involved": "Dechra, which makes and sells the medicine. Vet practices and wholesalers.",
+   "watch": "Whether supply stays steady, and whether the cause of the shortage is explained.",
+   "sources": [
+    {
+     "outlet": "Vet Times",
+     "title": "Canine epilepsy treatment back in stock",
+     "url": "https://www.vettimes.com/news/vets/small-animal-vets/canine-epilepsy-treatment-back-in-stock",
+     "date": "2026-10-23",
+     "grade": "B",
+     "note": "Figures on how many dogs need it come from Dechra, the maker."
+    }
+   ]
+  },
+  {
+   "id": "rkc-breed-registrations",
+   "edition": "2026-10-25",
+   "beat": "breeding",
+   "beats": [
+    "breeding",
+    "culture",
+    "science"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Flat-faced breed registrations keep falling, while some old native breeds dwindle",
+   "summary": "Royal Kennel Club figures show French bulldog registrations fell from about 54,000 in 2021 to 7,750 in 2025, and pugs to 834. At the other end, 38 native breeds are on the Royal Kennel Club's vulnerable list, with fewer than 300 puppies registered a year. Bloodhounds had 5 in 2025 and greyhounds 10. A vet warned in Vet Times that some breeds risk losing too much genetic variety. The Royal Kennel Club shares the concern but is cautious about drawing a direct link to crossbreeds or lifestyle trends.",
+   "forDog": "Fewer flat-faced puppies could mean fewer dogs who struggle to breathe. But very small breeds can end up heavily inbred, which raises the risk of inherited disease. The figures only count registered puppies, not every dog born in the UK.",
+   "tone": "mixed",
+   "status": "Developing",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-10-19",
+   "reported": "2026-10-19",
+   "involved": "The Royal Kennel Club, who register pedigree dogs and publish the figures. VetMedi, an online pet pharmacy whose founder raised the warning.",
+   "watch": "The Royal Kennel Club's 2026 full-year figures, expected early in 2027.",
+   "trend": "flat-faced-decline",
+   "sources": [
+    {
+     "outlet": "Vet Times",
+     "title": "Vet raises fears over extinction of historic dog breeds",
+     "url": "https://www.vettimes.com/news/vet-nursing/small-animal/vet-raises-fears-over-extinction-of-historic-dog-breeds",
+     "date": "2026-10-19",
+     "grade": "B"
+    },
+    {
+     "outlet": "Royal Kennel Club",
+     "title": "Vulnerable breed statistics, 10 years",
+     "url": "https://www.royalkennelclub.com/media/1kxnkwj2/vulnerable-breeds-2025.pdf",
+     "date": "2026",
+     "grade": "C",
+     "note": "The registration body for pedigree dogs. Their own registration data."
+    },
+    {
+     "outlet": "Yappily",
+     "title": "French Bulldog, Pug and Bulldog registrations continue to fall, Royal Kennel Club figures show",
+     "url": "https://yappily.co.uk/french-bulldog-pug-and-bulldog-registrations-continue-to-fall-royal-kennel-club-figures-show/",
+     "date": "2026-06-18",
+     "grade": "B",
+     "note": "Used for the French bulldog and pug figures."
+    },
+    {
+     "outlet": "PDSA",
+     "title": "PDSA responds to decline in flat-faced dogs",
+     "url": "https://www.pdsa.org.uk/press-office/latest-news/pdsa-responds-to-decline-in-flat-faced-dogs",
+     "date": "2026-06-05",
+     "grade": "B"
+    }
+   ]
+  },
+  {
+   "id": "ring-search-party",
+   "edition": "2026-10-25",
+   "beat": "culture",
+   "beats": [
+    "culture",
+    "consumer",
+    "rescue"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Doorbell cameras can now look for lost dogs in the UK",
+   "summary": "Ring, the doorbell camera company owned by Amazon, announced Search Party for Dogs in the UK on 22 October, working with Dogs Trust. When a guardian posts a lost dog in Ring's free Neighbours app, nearby outdoor cameras that have opted in scan footage for a possible match. The camera owner decides whether to share what they find. The wider Neighbours service has faced privacy questions in the US.",
+   "forDog": "Ring quote Dogs Trust's latest Stray Dog Survey, for April 2024 to March 2025: councils that responded took in more than 25,000 dogs, and about 38% went back to their guardians, the lowest share since the survey began in 1997. Ring say the feature has helped bring home more than one lost dog a day in the US since late 2025. That figure is the company's own.",
+   "tone": "mixed",
+   "status": "New",
+   "weight": "Low",
+   "confidence": "Claimed",
+   "date": "2026-10-22",
+   "reported": "2026-10-22",
+   "involved": "Ring, owned by Amazon, which makes the cameras and app. Dogs Trust, their partner on the launch.",
+   "watch": "Whether independent figures show it helps dogs get home, and how privacy concerns are handled.",
+   "trend": "lost-dogs-home",
+   "sources": [
+    {
+     "outlet": "About Amazon UK",
+     "title": "Ring launches Search Party for Dogs in the UK",
+     "url": "https://www.aboutamazon.co.uk/news/devices/ring-launches-search-party-for-dogs-in-the-uk",
+     "date": "2026-10-22",
+     "grade": "C",
+     "note": "The company's own announcement."
+    },
+    {
+     "outlet": "Yappily",
+     "title": "Ring's Search Party for Dogs is coming to the UK",
+     "url": "https://yappily.co.uk/rings-search-party-for-dogs-is-coming-to-the-uk-heres-what-dog-owners-need-to-know/",
+     "date": "2026-09-16",
+     "grade": "B",
+     "note": "Notes the lost-dog figures come from Ring, and the privacy debate."
+    },
+    {
+     "outlet": "Dogs Trust",
+     "title": "Stray Dog Survey 2025",
+     "url": "https://www.dogstrust.org.uk/downloads/Stray-Dog-Survey-2025.pdf",
+     "date": "2026",
+     "grade": "B",
+     "note": "Dogs Trust's survey of councils, April 2024 to March 2025."
+    }
+   ]
+  },
+  {
+   "id": "bva-ai-toolkit",
+   "edition": "2026-10-25",
+   "beat": "vets",
+   "beats": [
+    "vets",
+    "culture"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Vets estimate 1 in 7 clients use AI for their animals' care",
+   "summary": "The British Veterinary Association (BVA) has published guidance to help vet practices use artificial intelligence (AI) safely. In their Voice of the Veterinary Profession survey, nearly half said their workplace had no policy on AI. Vets estimated about 1 in 7 clients use AI tools for their animals, most often to try to diagnose a health problem. The toolkit includes help for conversations when an AI suggestion clashes with a vet's advice.",
+   "forDog": "The BVA says AI advice can be helpful in some cases, but warns it could also cause confusion, misunderstanding and even harm animals' welfare.",
+   "tone": "mixed",
+   "status": "New",
+   "weight": "Low",
+   "confidence": "Reported",
+   "date": "2026-10-22",
+   "reported": "2026-10-22",
+   "involved": "British Veterinary Association, the UK vets' professional body. The full toolkit is for their members.",
+   "watch": "Whether the Royal College of Veterinary Surgeons (RCVS) sets rules for AI in vet practice.",
+   "sources": [
+    {
+     "outlet": "VetClick",
+     "title": "Artificial Intelligence: BVA launches toolkit to help vets use this rapidly advancing technology",
+     "url": "https://www.vetclick.com/news/artificial-intelligence-bva-launches-toolkit-to-help-vets-use-this-rapidly-advancing-technology-and-tackle-client-self-diagnosis-p12272.php",
+     "date": "2026-10-22",
+     "grade": "C",
+     "note": "The BVA's own release, posted on VetClick."
+    },
+    {
+     "outlet": "British Veterinary Association",
+     "title": "Artificial intelligence resources",
+     "url": "https://www.bva.co.uk/resources-support/artificial-intelligence-resources/",
+     "date": "2026",
+     "grade": "C",
+     "note": "The BVA's own resources page."
+    }
+   ]
+  },
+  {
+   "id": "xl-bully-child-rule",
+   "edition": "2026-10-25",
+   "beat": "law",
+   "beats": [
+    "law",
+    "crime",
+    "welfare"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "From 1 November, children under 12 must not be left with banned-type dogs, including XL bullies, without an adult",
+   "summary": "From 1 November 2026, guardians of dogs on an exemption certificate, including XL bullies, must not leave a child under 12 in close contact with their dog in a private place, such as a home or garden, without an adult supervising. It becomes a condition of the certificate in all four UK nations. Separately, the government now offers an online form for holders of XL bully certificates issued in England and Wales between November 2023 and February 2024 to ask for them to be withdrawn, if they no longer think their dog is an XL bully. Withdrawal can't be undone, and doing it for a dog that is an XL bully is an offence.",
+   "forDog": "If certificate conditions aren't met, the dog could be seized and the guardian prosecuted, so families with exempt dogs will need a way to supervise or separate dogs and young children at home. The UK government has published guidance on how to do that. The rule is about supervision, not the individual dog's behaviour.",
+   "tone": "mixed",
+   "status": "Developing",
+   "weight": "High",
+   "confidence": "Confirmed",
+   "date": "2026-10-01",
+   "reported": "2026-10-01",
+   "involved": "The Department for Environment, Food and Rural Affairs (Defra), for England and Wales. The Scottish Government. Northern Ireland's Department of Agriculture, Environment and Rural Affairs (DAERA). Guardians of dogs with exemption certificates.",
+   "watch": "1 November 2026, when the child rule starts. Whether Defra publishes how many certificates have been withdrawn.",
+   "trend": "breed-laws-questioned",
+   "sources": [
+    {
+     "outlet": "legislation.gov.uk",
+     "title": "The Dangerous Dogs (Exemption Schemes) (England and Wales) (Amendment) Order 2026",
+     "url": "https://www.legislation.gov.uk/uksi/2026/602/made",
+     "date": "2026-06-08",
+     "grade": "A",
+     "note": "The law setting the child rule in England and Wales, from 1 November 2026."
+    },
+    {
+     "outlet": "UK government (Defra)",
+     "title": "Ban on XL Bully dogs",
+     "url": "https://www.gov.uk/guidance/ban-on-xl-bully-dogs",
+     "date": "2026-10-01",
+     "grade": "A",
+     "note": "Current rules for England and Wales, including the child rule from 1 November 2026."
+    },
+    {
+     "outlet": "UK government (Defra)",
+     "title": "Keeping children safe around banned breed dogs in the home",
+     "url": "https://www.gov.uk/government/publications/keeping-children-safe-around-banned-breed-dogs-in-the-home",
+     "date": "2026-09-16",
+     "grade": "A"
+    },
+    {
+     "outlet": "UK government (Defra)",
+     "title": "Apply to withdraw a Certificate of Exemption for a dog",
+     "url": "https://www.gov.uk/guidance/apply-to-withdraw-a-certificate-of-exemption-for-a-dog",
+     "date": "2026-10-01",
+     "grade": "A"
+    },
+    {
+     "outlet": "Scottish Government",
+     "title": "XL Bully dogs in Scotland: child protection",
+     "url": "https://www.gov.scot/publications/xl-bully-dogs-scotland-child-protection/",
+     "date": "2026-09-25",
+     "grade": "A"
+    },
+    {
+     "outlet": "Department of Agriculture, Environment and Rural Affairs (Northern Ireland)",
+     "title": "DAERA announces updates to requirements for exempted dogs",
+     "url": "https://www.daera-ni.gov.uk/news/daera-announces-updates-requirements-exempted-dogs",
+     "date": "2026-06-17",
+     "grade": "A"
+    }
+   ]
+  },
+  {
+   "id": "vet-act-reform",
+   "edition": "2026-10-25",
+   "beat": "vets",
+   "beats": [
+    "vets",
+    "law"
+   ],
+   "where": "UK",
+   "region": "uk",
+   "headline": "Government says plans to replace the 1966 vet law are well advanced, but there's no date for a bill",
+   "summary": "Jimmy Lindqvist, head of veterinary policy at the Department for Environment, Food and Rural Affairs (Defra), told the British Veterinary Nursing Association (BVNA) Congress that plans to replace the Veterinary Surgeons Act 1966 are much further on than a year ago. The government published a white paper in July, and Defra is turning it into detailed plans. Defra has bid for time for a bill in the third session of this Parliament, but nothing is confirmed, and he named a crowded law-making programme as the main risk.",
+   "forDog": "The 1966 law sets who can treat animals and what vet nurses are allowed to do. Defra says the new law aims to protect animal welfare, support vet professionals and hold vet businesses to account. Gwen Rees, president of the British Veterinary Association (BVA), says protecting the vet nurse title would be the key marker of success.",
+   "tone": "mixed",
+   "status": "Promised",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-10-16",
+   "reported": "2026-10-16",
+   "involved": "Defra, which is drafting the law. The BVA and BVNA, the professional bodies for vets and vet nurses. The Royal College of Veterinary Surgeons (RCVS), the regulator whose powers the law sets.",
+   "watch": "Whether a vet bill is given time in the third session of this Parliament.",
+   "trend": "vet-price-transparency",
+   "sources": [
+    {
+     "outlet": "Vet Times",
+     "title": "Veterinary Surgeon's Act: Defra 'confident' reform will become law",
+     "url": "https://www.vettimes.com/news/vet-nursing/wellbeing-at-work-vet-nursing/defra-confident-reform-of-vet-act-will-become-law",
+     "date": "2026-10-16",
+     "grade": "B"
+    },
+    {
+     "outlet": "UK government",
+     "title": "Cheaper vet fees and new ombudsman in biggest reforms to vet sector in half a century",
+     "url": "https://www.gov.uk/government/news/cheaper-vet-fees-and-new-ombudsman-in-biggest-reforms-to-vet-sector-in-half-a-century",
+     "date": "2026-07-09",
+     "grade": "A",
+     "note": "The July 2026 white paper announcement."
+    }
+   ]
+  },
+  {
+   "id": "trainers-switch-methods",
+   "edition": "2026-10-25",
+   "beat": "training",
+   "beats": [
+    "training",
+    "science"
+   ],
+   "where": "United States",
+   "region": "world",
+   "headline": "Dog trainers who gave up punishment say seeing dogs' fear made them rethink",
+   "summary": "Researchers interviewed 35 professional dog trainers in the US: 17 who use only reward-based methods, and 18 who also use aversive methods, such as adding something unpleasant like a leash jerk or shock, or applying pressure until the dog complies. Both groups rated positive reinforcement, rewarding the behaviour they want, as the most effective method or joint most effective. Of the reward-based trainers, 14 had used aversive methods before, and about two-thirds of them said seeing dogs' fear, distress or reactivity led them to rethink their approach. The sample is small, may be self-selected and is US only, and the study was funded by the Pet Professional Guild, a membership group for force-free trainers.",
+   "forDog": "Earlier research, summarised by the dog trainer and author Zazie Todd, links aversive tools such as prong and shock collars to risks for dogs' welfare and their bond with people. This study suggests that noticing how dogs feel, and learning about behaviour science, moved many trainers towards rewards.",
+   "tone": "mixed",
+   "status": "New",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-02-25",
+   "reported": "2026-09-30",
+   "involved": "Jamie DeLeeuw (Community Research Plus) and Todd Williams (Grand Valley State University). Funded by the Pet Professional Guild's Pet Training Science Alliance Program. Zazie Todd, who wrote it up for Psychology Today.",
+   "watch": "Larger studies that measure dogs' welfare under different methods, rather than asking trainers, and moves by trainer bodies such as the IAABC (International Association of Animal Behavior Consultants), which Zazie Todd says now requires members to use reward-based methods.",
+   "sources": [
+    {
+     "outlet": "Frontiers in Veterinary Science",
+     "title": "Professional dog trainers' perspectives on training methods: ethical and evidentiary insights",
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12975608/",
+     "date": "2026-02-25",
+     "grade": "A",
+     "note": "The peer-reviewed study. 35 trainers interviewed in 2023. Funded by the Pet Professional Guild, a force-free trainers' group."
+    },
+    {
+     "outlet": "Psychology Today",
+     "title": "Dog Trainers Switch Methods Due to Empathy and Education",
+     "url": "https://www.psychologytoday.com/us/blog/fellow-creatures/202609/dog-trainers-switch-methods-due-to-empathy-and-education",
+     "date": "2026-09-30",
+     "grade": "B",
+     "note": "Written up by Zazie Todd."
+    }
+   ]
+  },
+  {
+   "id": "canid-memory-test",
+   "edition": "2026-10-25",
+   "beat": "science",
+   "beats": [
+    "science",
+    "vets"
+   ],
+   "where": "United States",
+   "region": "world",
+   "headline": "A 40-minute treat-finding test picks up memory changes in dogs from middle age",
+   "summary": "University of Arizona researchers built a test of three treat-based games to measure dogs' memory and problem solving, and tried it on 239 pet dogs in Arizona and California, working with the Dog Aging Project. They retested 138 dogs after six months and 114 after a year, and scores stayed fairly consistent. The researchers say the test picks up age-related differences from middle age, years before signs of dementia usually show. The paper in Animal Cognition is an early version that may still be edited, and the test needs trained staff and equipment.",
+   "forDog": "The researchers say the test can pick up subtle decline at around 7 to 8 years old, while clear dementia signs usually appear at around 12 to 14. A reliable test lets scientists check whether treatments or changes to daily life slow decline. Dogs who became fearful or anxious and couldn't be settled weren't tested.",
+   "tone": "mixed",
+   "status": "New",
+   "weight": "Low",
+   "confidence": "Reported",
+   "date": "2026-10-12",
+   "reported": "2026-10-22",
+   "involved": "Stephanie Hargrave, Evan MacLean and colleagues at the University of Arizona and other US universities, with the Dog Aging Project. Funded mainly by the US National Institute on Aging, with several foundations.",
+   "watch": "Whether other teams use the test, and results from dogs tested over several years.",
+   "sources": [
+    {
+     "outlet": "Animal Cognition",
+     "title": "Cognitive assessment for neuropsychological impairments in dogs (CANID): an efficient, repeatable, and sensitive evaluation for studies of cognitive aging",
+     "url": "https://link.springer.com/article/10.1007/s10071-026-02112-x",
+     "date": "2026-10-12",
+     "grade": "A",
+     "note": "The peer-reviewed study, shared as an early version before final edits."
+    },
+    {
+     "outlet": "EurekAlert (University of Arizona)",
+     "title": "Hide-and-seek for treats offers a new window into cognitive decline in dogs",
+     "url": "https://www.eurekalert.org/news-releases/1148927",
+     "date": "2026-10-22",
+     "grade": "C",
+     "note": "The university's own press release."
+    }
+   ]
+  },
+  {
+   "id": "mexico-welfare-law",
+   "edition": "2026-10-25",
+   "beat": "world",
+   "beats": [
+    "world",
+    "law",
+    "welfare"
+   ],
+   "where": "Mexico",
+   "region": "world",
+   "headline": "Mexico's Senate passes a national animal welfare law that covers street and community dogs",
+   "summary": "Mexico's Senate approved a General Law on Animal Welfare at the end of September, with 115 votes for and 1 against, according to Noticias Gobierno. It backs sterilisation, vaccination and adoption campaigns and creates national registers of companion animals and of people found to have broken the law. Humane World for Animals, who campaigned for it, say it also recognises community dogs and cats cared for by neighbours and tightens oversight of breeding and sales. The Chamber of Deputies still has to vote.",
+   "forDog": "Recognising dogs cared for by a whole neighbourhood, and backing sterilisation and adoption, could change how street dogs are treated across the country. Humane World for Animals say the law would take effect 60 days after publication, and note it relies on existing public budgets, so how much changes will depend on funding.",
+   "tone": "positive",
+   "status": "Developing",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-09-29",
+   "reported": "2026-10-01",
+   "involved": "Mexico's Senate and Chamber of Deputies. Federal and state governments, which would carry it out. Humane World for Animals, a campaign group that backed the law.",
+   "watch": "The vote in the Chamber of Deputies.",
+   "trend": "national-dog-welfare-laws",
+   "sources": [
+    {
+     "outlet": "Uno TV",
+     "title": "Senado aprueba Ley de Bienestar Animal; ¿qué establece para mascotas?",
+     "url": "https://www.unotv.com/mascotas/senado-aprueba-ley-de-bienestar-animal-que-establece-para-mascotas/",
+     "date": "2026-10-01",
+     "grade": "B",
+     "note": "In Spanish."
+    },
+    {
+     "outlet": "Noticias Gobierno",
+     "title": "Ley de Bienestar Animal: qué cambia para dueños de mascotas",
+     "url": "https://www.noticiasgobierno.com/ley-de-bienestar-animal-senado-mascotas/",
+     "date": "2026-10-02",
+     "grade": "B",
+     "note": "In Spanish. Used for the vote count and next steps."
+    },
+    {
+     "outlet": "Expansión Política",
+     "title": "¿Qué sanciones habrá por maltrato animal? Esto propone la nueva Ley de Bienestar Animal",
+     "url": "https://politica.expansion.mx/congreso/2026/10/06/nueva-ley-bienestar-animal-multas-56-mil-pesos-cuidado-perros-y-gatos",
+     "date": "2026-10-06",
+     "grade": "B",
+     "note": "In Spanish. Reports the bill is still waiting for the Chamber of Deputies."
+    },
+    {
+     "outlet": "Humane World for Animals",
+     "title": "Mexican Senate Committee advances landmark Animal Welfare Bill",
+     "url": "https://www.humaneworld.org/en/news/mexico-landmark-animal-welfare-bill-advances",
+     "date": "2026-09-29",
+     "grade": "C",
+     "note": "An animal protection campaign group that supports the law. Used for what it covers for dogs and cats."
+    }
+   ]
+  },
+  {
+   "id": "delhi-street-dogs",
+   "edition": "2026-10-25",
+   "beat": "world",
+   "beats": [
+    "world",
+    "welfare",
+    "vets"
+   ],
+   "where": "India",
+   "region": "world",
+   "headline": "Delhi sterilised and vaccinated about 66,000 street dogs in eight months, records show",
+   "summary": "The Municipal Corporation of Delhi sterilised and vaccinated 65,784 street dogs from January to August 2026, according to a Right to Information reply reported by the Press Trust of India on 19 October. Earlier totals were 131,137 in 2024-25 and 101,394 in 2025-26, and the report describes progress as slow. Officials estimate the city has a million or more street dogs, but the only survey cited, from 2016, covered just four zones. The 2026-27 budget sets aside 20 crore rupees each for dog shelters and for microchipping street dogs.",
+   "forDog": "Officials are drafting a standard procedure for sterilisation and rabies vaccination, covering humane catching, care after surgery and returning dogs to the streets they came from. A microchipping pilot at one sterilisation centre, started in July, covers 600 to 700 dogs a month, which could help track which dogs have already been treated.",
+   "tone": "mixed",
+   "status": "Developing",
+   "weight": "Medium",
+   "confidence": "Reported",
+   "date": "2026-10-12",
+   "reported": "2026-10-19",
+   "involved": "The Municipal Corporation of Delhi's Veterinary Services Department.",
+   "watch": "Figures for September onwards, and the new standard procedure.",
+   "sources": [
+    {
+     "outlet": "ThePrint (Press Trust of India)",
+     "title": "MCD sterilised, immunised 65,784 stray dogs till August this year: RTI",
+     "url": "https://theprint.in/india/mcd-sterilised-immunised-65784-stray-dogs-till-august-this-year-rti/3076060/",
+     "date": "2026-10-19",
+     "grade": "B"
+    }
+   ]
+  }
+ ],
+ "trends": [
+  {
+   "id": "vet-price-transparency",
+   "name": "Clearer vet prices and new vet rules",
+   "beat": "vets",
+   "first": "2026-03",
+   "stage": "trend",
+   "direction": "Coming into force",
+   "speed": "On schedule",
+   "evidence": "The final decision in March 2026 became a legally binding order in September 2026. In October 2026, Defra said plans to replace the Veterinary Surgeons Act 1966 were well advanced, with no date yet for a bill.",
+   "next": "2026-12",
+   "prediction": "p-vet-prices",
+   "move": "up",
+   "forDogs": "good",
+   "context": "Vet practices will have to show their prices, so guardians can compare and plan for care, and the law that governs vets is due to be rewritten.",
+   "sources": [
+    {
+     "outlet": "Competition and Markets Authority",
+     "title": "The Veterinary Services Market Investigation Order 2026",
+     "url": "https://assets.publishing.service.gov.uk/media/6ab237c14c0f475de0a66b27/__Veterinary_Services_Market_Investigation_Order_2026__.pdf",
+     "date": "2026-09-22",
+     "grade": "A",
+     "note": "The Order itself, with the deadlines and the £21.40 prescription fee cap."
+    },
+    {
+     "outlet": "Competition and Markets Authority",
+     "title": "Veterinary Services Market Investigation Order 2026",
+     "url": "https://www.gov.uk/government/publications/veterinary-services-market-investigation-order-2026-and-veterinary-services-market-investigation-royal-college-of-veterinary-surgeons-undertakings-202",
+     "date": "2026-09-22",
+     "grade": "A"
+    },
+    {
+     "outlet": "Vet Times",
+     "title": "Defra 'confident' reform of vet act will become law",
+     "url": "https://www.vettimes.com/news/vet-nursing/wellbeing-at-work-vet-nursing/defra-confident-reform-of-vet-act-will-become-law",
+     "date": "2026-10-16",
+     "grade": "B"
+    }
+   ]
+  },
+  {
+   "id": "cost-of-living-dog-care",
+   "name": "Money worries reaching dog care",
+   "beat": "culture",
+   "first": "2026-04",
+   "stage": "pattern",
+   "direction": "Steady",
+   "speed": "Steady",
+   "evidence": "In a PDSA survey published in April 2026, 11% of pet owners said they had delayed vet care because of the cost. A Royal Veterinary College study published in August 2026 found some guardians cutting back on training and vet visits.",
+   "sources": [
+    {
+     "outlet": "PDSA",
+     "title": "Charity warns UK pet health crisis looming as petflation pressure mounts",
+     "url": "https://www.pdsa.org.uk/press-office/latest-news/charity-warns-uk-pet-health-crisis-looming-as-petflation-pressure-mounts",
+     "date": "2026-04-22",
+     "grade": "B"
+    },
+    {
+     "outlet": "Animals (journal)",
+     "title": "Impacts of the 'Cost-of-Living Crisis' on UK-Based Owners of Pandemic Puppies",
+     "url": "https://www.mdpi.com/2076-2615/16/17/2656",
+     "date": "2026-08-24",
+     "grade": "A"
+    }
+   ],
+   "next": "2027-04",
+   "prediction": "p-cost-of-living",
+   "move": "flat",
+   "forDogs": "bad",
+   "context": "Some guardians are putting off vet care or training because of money."
+  },
+  {
+   "id": "korea-dog-meat-ban",
+   "name": "South Korea ends the dog meat trade",
+   "beat": "world",
+   "first": "2024-02",
+   "stage": "trend",
+   "direction": "Rising",
+   "speed": "Ahead of plan",
+   "evidence": "87% of registered farms closed by September 2026, 30% more than the government expected.",
+   "next": "2027-02",
+   "prediction": "p-korea-ban",
+   "move": "up",
+   "forDogs": "good",
+   "context": "Fewer dogs are kept on meat farms each month as farms close.",
+   "sources": [
+    {
+     "outlet": "The Korea Times",
+     "title": "87% of dog meat farms closed ahead of February ban",
+     "url": "https://www.koreatimes.co.kr/business/companies/20261011/87-of-dog-meat-farms-closed-ahead-of-february-ban",
+     "date": "2026-10-11",
+     "grade": "B"
+    }
+   ]
+  },
+  {
+   "id": "breed-laws-questioned",
+   "name": "Breed-based dog laws questioned",
+   "beat": "law",
+   "first": "2026-10",
+   "stage": "pattern",
+   "direction": "Rising",
+   "speed": "Early",
+   "evidence": "A Bangor University study, a UK Parliament petition on removing dogs from the XL bully exemption scheme, and an Irish inquest, all in October 2026. From 1 November 2026, a new child supervision rule applies to banned-type dogs across the UK, and the government now offers an online form for some XL bully certificates to be withdrawn.",
+   "next": "2027-01",
+   "move": "up",
+   "forDogs": "mixed",
+   "context": "More people are asking whether laws based on how a dog looks make anyone safer, while the rules for banned-type dogs keep changing.",
+   "sources": [
+    {
+     "outlet": "UK government (Defra)",
+     "title": "Ban on XL Bully dogs",
+     "url": "https://www.gov.uk/guidance/ban-on-xl-bully-dogs",
+     "date": "2026-10-01",
+     "grade": "A"
+    },
+    {
+     "outlet": "Nation.Cymru",
+     "title": "Targeting XL Bully won't solve dog aggression, new study warns",
+     "url": "https://nation.cymru/news/targeting-xl-bully-wont-solve-dog-aggression-new-study-warns/",
+     "date": "2026-10-23",
+     "grade": "B"
+    },
+    {
+     "outlet": "Scottish Government",
+     "title": "XL Bully dogs in Scotland: child protection",
+     "url": "https://www.gov.scot/publications/xl-bully-dogs-scotland-child-protection/",
+     "date": "2026-09-25",
+     "grade": "A"
+    },
+    {
+     "outlet": "The Irish Times",
+     "title": "Armed gardaí shot XL Bully dog four times after it attacked and killed owner, inquest told",
+     "url": "https://www.irishtimes.com/crime-law/courts/2026/10/06/armed-gardai-shot-xl-bully-dog-four-times-after-it-attacked-and-killed-owner-inquest-told/",
+     "date": "2026-10-06",
+     "grade": "B"
+    }
+   ]
+  },
+  {
+   "id": "dogs-in-research",
+   "name": "Pressure to end dogs in research",
+   "beat": "science",
+   "first": "2026-04",
+   "stage": "pattern",
+   "direction": "Steady",
+   "speed": "Slow",
+   "evidence": "In April 2026, MPs debated a petition to end testing on dogs, and many backed Herbie's Law. Activists took puppies from a breeding site in September 2026.",
+   "next": "2027-01",
+   "move": "flat",
+   "forDogs": "good",
+   "context": "Calls to stop using dogs in experiments are holding steady, with no change in the law yet.",
+   "sources": [
+    {
+     "outlet": "SWNS",
+     "title": "Animal-rights protester arrested following puppy raid at biomedical centre",
+     "url": "https://discover.swns.com/2026/10/animal-rights-protester-arrested-following-puppy-raid-at-biomedical-centre/",
+     "date": "2026-10-08",
+     "grade": "B"
+    },
+    {
+     "outlet": "Animal Free Research UK",
+     "title": "Momentum builds for Herbie's Law as MPs debate banning dog experiments",
+     "url": "https://www.animalfreeresearchuk.org/momentum-builds-for-herbies-law-as-mps-debate-banning-dog-experiments/",
+     "date": "2026-04-30",
+     "grade": "C",
+     "note": "A campaign group for ending animal research."
+    }
+   ]
+  },
+  {
+   "id": "large-neglect-cases",
+   "name": "Large multi-dog neglect cases in court",
+   "beat": "crime",
+   "first": "2026-09",
+   "stage": "pattern",
+   "direction": "Rising",
+   "speed": "Steady",
+   "evidence": "RSPCA cases involving 21 dogs and 84 dogs reached court in late September 2026. The RSPCA say cases with 10 or more animals at one address rose about 70% from 2021 to 2025, when there were more than 4,200. In October, they said there had been 3,280 such cases so far in 2026, about 410 a month. These figures are the charity's own and haven't been checked independently.",
+   "next": "2027-04",
+   "prediction": "p-multi-animal",
+   "move": "up",
+   "forDogs": "bad",
+   "context": "The RSPCA says cases where many animals are found in one home are rising. Those figures are their own.",
+   "sources": [
+    {
+     "outlet": "RSPCA",
+     "title": "Twenty one dogs and a cat found living in filthy crates in Cumbria",
+     "url": "https://www.rspca.org.uk/w/whatwedo/press/twenty-one-dogs-and-a-cat-found-living-in-filthy-crates-in-cumbria",
+     "date": "2026-10-08",
+     "grade": "B"
+    },
+    {
+     "outlet": "RSPCA",
+     "title": "Man found guilty for keeping over 80 dogs in 'appalling' conditions",
+     "url": "https://www.rspca.org.uk/w/whatwedo/press/man-guilty-after-neglecting-80-dogs-rescued-from-appalling-conditions",
+     "date": "2026-09-30",
+     "grade": "B"
+    },
+    {
+     "outlet": "Companion Life",
+     "title": "Capacity crisis: RSPCA overwhelmed with multi-animal cases, issues urgent plea",
+     "url": "https://www.companionlife.co.uk/capacity-crisis-rspca-overwhelmed-with-multi-animal-cases-issues-urgent-plea/",
+     "date": "2026-10-06",
+     "grade": "B"
+    }
+   ]
+  },
+  {
+   "id": "eu-dog-cat-rules",
+   "name": "Common rules for dogs across the EU",
+   "beat": "world",
+   "first": "2026-04",
+   "stage": "trend",
+   "direction": "Coming into force",
+   "speed": "Slow",
+   "evidence": "The European Parliament passed the EU's first rules on dog and cat welfare and traceability on 28 April 2026. They were formally adopted as Regulation (EU) 2026/1818 on 17 June 2026, with transition periods of 2 to 15 years.",
+   "sources": [
+    {
+     "outlet": "EUR-Lex",
+     "title": "Regulation (EU) 2026/1818 on the welfare of dogs and cats and their traceability",
+     "url": "https://eur-lex.europa.eu/eli/reg/2026/1818/oj",
+     "date": "2026-06-17",
+     "grade": "A"
+    },
+    {
+     "outlet": "Eurogroup for Animals",
+     "title": "New EU framework on dog and cat welfare reaches the finish line",
+     "url": "https://www.eurogroupforanimals.org/news/new-eu-framework-dog-and-cat-welfare-reaches-finish-line",
+     "date": "2026-04-28",
+     "grade": "C"
+    }
+   ],
+   "next": "2027-04",
+   "move": "up",
+   "forDogs": "good",
+   "context": "EU countries will have to trace where every dog comes from and meet basic welfare standards."
+  },
+  {
+   "id": "renting-with-dogs",
+   "name": "Right to ask for a pet when renting",
+   "beat": "culture",
+   "first": "2026-05",
+   "stage": "trend",
+   "direction": "In force",
+   "speed": "Steady",
+   "evidence": "Since 1 May 2026, tenants in England can ask in writing to keep a pet, and landlords can only refuse for a reasonable reason. An ombudsman can look at how requests were handled from 2028.",
+   "sources": [
+    {
+     "outlet": "National Residential Landlords Association",
+     "title": "Pets in rental properties",
+     "url": "https://www.nrla.org.uk/resources/renters-rights/pets-in-rental-properties",
+     "date": "2026",
+     "grade": "C"
+    }
+   ],
+   "next": "2028-01",
+   "move": "up",
+   "forDogs": "good",
+   "context": "Tenants in England can now ask to keep a dog, and landlords need a good reason to say no."
+  },
+  {
+   "id": "dog-theft-laws",
+   "name": "Dog theft becoming its own crime",
+   "beat": "law",
+   "first": "2026-02",
+   "stage": "signal",
+   "direction": "Waiting",
+   "speed": "Slow",
+   "evidence": "The Dog Theft (Scotland) Act 2026 became law in February 2026, with up to 5 years in prison, but the offence starts only when Scottish Ministers set a date.",
+   "sources": [
+    {
+     "outlet": "legislation.gov.uk",
+     "title": "Dog Theft (Scotland) Act 2026",
+     "url": "https://www.legislation.gov.uk/asp/2026/2/data.htm?view=plain",
+     "date": "2026-02-10",
+     "grade": "A"
+    }
+   ],
+   "next": "2027-04",
+   "prediction": "p-scotland-theft",
+   "move": "flat",
+   "forDogs": "good",
+   "context": "Scotland has passed a dog theft law but hasn't set a start date yet."
+  },
+  {
+   "id": "flea-treatments-rivers",
+   "name": "Flea treatments and rivers",
+   "beat": "environment",
+   "first": "2026-08",
+   "stage": "signal",
+   "direction": "Rising",
+   "speed": "Early",
+   "evidence": "In August 2026, the House of Lords Environment and Climate Change Committee called for flea and tick treatments to be sold only with qualified advice, because of chemicals such as fipronil and imidacloprid in rivers.",
+   "sources": [
+    {
+     "outlet": "ITV News",
+     "title": "Peers call for ban on 'toxic' pet flea treatments to protect environment",
+     "url": "https://www.itv.com/news/2026-08-05/peers-call-for-ban-on-toxic-pet-flea-treatments-to-protect-environment",
+     "date": "2026-08-05",
+     "grade": "B"
+    }
+   ],
+   "next": "2027-02",
+   "move": "up",
+   "forDogs": "mixed",
+   "context": "Fewer unnecessary treatments could protect rivers. Dogs still need protecting from fleas and ticks."
+  },
+  {
+   "id": "greyhound-racing-bans",
+   "name": "Greyhound racing ending in Wales and Scotland",
+   "beat": "working",
+   "first": "2026-03",
+   "stage": "trend",
+   "direction": "Coming into force",
+   "speed": "Slow",
+   "evidence": "Scottish MSPs voted 70 to 27 for a ban on 18 March 2026. Wales's ban became law on 27 April 2026 and must start between 1 April 2027 and 1 April 2030. England has no plan to ban it.",
+   "sources": [
+    {
+     "outlet": "Welsh Government",
+     "title": "The Prohibition of Greyhound Racing (Wales) Act 2026",
+     "url": "https://www.gov.wales/prohibition-greyhound-racing-wales-act-2026-0",
+     "date": "2026-07-09",
+     "grade": "A"
+    },
+    {
+     "outlet": "ITV News",
+     "title": "Scotland bans greyhound racing",
+     "url": "https://www.itv.com/news/border/2026-03-19/scotland-bans-greyhound-racing",
+     "date": "2026-03-19",
+     "grade": "B"
+    },
+    {
+     "outlet": "UK Parliament petitions",
+     "title": "Government response on banning greyhound racing in England",
+     "url": "https://petition.parliament.uk/petitions/731016",
+     "date": "2025",
+     "grade": "A"
+    }
+   ],
+   "next": "2027-04",
+   "prediction": "p-wales-greyhound",
+   "move": "up",
+   "forDogs": "good",
+   "context": "Racing will end in Wales and Scotland once the bans start. England has no plan to follow."
+  },
+  {
+   "id": "flat-faced-decline",
+   "name": "Fewer flat-faced puppies registered",
+   "beat": "breeding",
+   "first": "2021",
+   "stage": "trend",
+   "direction": "Falling",
+   "speed": "Steady",
+   "evidence": "Royal Kennel Club French bulldog registrations fell from 54,074 in 2021 to 7,750 in 2025, and pugs from 10,408 in 2016 to 834 in 2025. Early 2026 figures were lower again. The figures cover registered pedigree puppies only.",
+   "sources": [
+    {
+     "outlet": "PDSA",
+     "title": "PDSA responds to decline in flat-faced dogs",
+     "url": "https://www.pdsa.org.uk/press-office/latest-news/pdsa-responds-to-decline-in-flat-faced-dogs",
+     "date": "2026-06-05",
+     "grade": "B",
+     "note": "Reports the Royal Kennel Club's registration figures."
+    }
+   ],
+   "next": "2027-03",
+   "prediction": "p-frenchie-2026",
+   "move": "down",
+   "forDogs": "good",
+   "context": "Fewer puppies from breeds that often struggle to breathe are being registered each year."
+  },
+  {
+   "id": "lost-dogs-home",
+   "name": "Getting lost dogs home faster",
+   "beat": "rescue",
+   "first": "2026-10",
+   "stage": "pattern",
+   "direction": "Rising",
+   "speed": "Early",
+   "evidence": "A single search across five microchip databases launched in October 2026. Ring brought camera searches for lost dogs to the UK on 22 October. Several open UK Parliament petitions ask for changes to microchip rules.",
+   "next": "2027-04",
+   "move": "up",
+   "forDogs": "good",
+   "context": "New tools aim to reunite lost dogs with their families sooner, though most are still voluntary.",
+   "sources": [
+    {
+     "outlet": "Association of Microchip Database Operators",
+     "title": "Single Point of Search launch",
+     "url": "https://www.amdo.org.uk/2026/09/30/spos-launch/",
+     "date": "2026-09-30",
+     "grade": "C"
+    },
+    {
+     "outlet": "British Veterinary Association",
+     "title": "Vets hail launch of centralised pet microchip portal",
+     "url": "https://www.bva.co.uk/news-and-blog/news-article/vets-hail-launch-of-centralised-pet-microchip-portal/",
+     "date": "2026-10-15",
+     "grade": "B"
+    },
+    {
+     "outlet": "About Amazon UK",
+     "title": "Ring launches Search Party for Dogs in the UK",
+     "url": "https://www.aboutamazon.co.uk/news/devices/ring-launches-search-party-for-dogs-in-the-uk",
+     "date": "2026-10-22",
+     "grade": "C"
+    }
+   ]
+  },
+  {
+   "id": "puppy-trade-rules",
+   "name": "Tighter rules on selling puppies",
+   "beat": "breeding",
+   "first": "2026-02",
+   "stage": "pattern",
+   "direction": "Rising",
+   "speed": "Slow",
+   "evidence": "In October 2026, Northern Ireland approved plans for their own Lucy's Law. England, Scotland and Wales already ban third-party puppy sales. The EU adopted rules on dog breeding and traceability in June 2026.",
+   "next": "2027-01",
+   "prediction": "p-ni-lucys-law",
+   "move": "up",
+   "forDogs": "good",
+   "context": "Across the UK and EU, more rules say where puppies can come from and who can sell them.",
+   "sources": [
+    {
+     "outlet": "Department of Agriculture, Environment and Rural Affairs (Northern Ireland)",
+     "title": "Green light for Lucy's Law signals a turning point in the fight against puppy farming in Northern Ireland",
+     "url": "https://www.daera-ni.gov.uk/news/green-light-lucys-law-signals-turning-point-fight-against-puppy-farming-northern-ireland-muir",
+     "date": "2026-10-07",
+     "grade": "A"
+    },
+    {
+     "outlet": "EUR-Lex",
+     "title": "Regulation (EU) 2026/1818 on the welfare of dogs and cats and their traceability",
+     "url": "https://eur-lex.europa.eu/eli/reg/2026/1818/oj",
+     "date": "2026-06-17",
+     "grade": "A"
+    }
+   ]
+  },
+  {
+   "id": "national-dog-welfare-laws",
+   "name": "Countries writing national dog welfare laws",
+   "beat": "world",
+   "first": "2026-04",
+   "stage": "pattern",
+   "direction": "Rising",
+   "speed": "Steady",
+   "evidence": "The EU adopted their first dog and cat welfare rules in June 2026. South Korea's dog meat ban starts in February 2027. Mexico's Senate passed a General Law on Animal Welfare at the end of September 2026, which now goes to the Chamber of Deputies.",
+   "sources": [
+    {
+     "outlet": "EUR-Lex",
+     "title": "Regulation (EU) 2026/1818 on the welfare of dogs and cats and their traceability",
+     "url": "https://eur-lex.europa.eu/eli/reg/2026/1818/oj",
+     "date": "2026-06-17",
+     "grade": "A"
+    },
+    {
+     "outlet": "Expansión Política",
+     "title": "¿Qué sanciones habrá por maltrato animal? Esto propone la nueva Ley de Bienestar Animal",
+     "url": "https://politica.expansion.mx/congreso/2026/10/06/nueva-ley-bienestar-animal-multas-56-mil-pesos-cuidado-perros-y-gatos",
+     "date": "2026-10-06",
+     "grade": "B"
+    },
+    {
+     "outlet": "The Korea Times",
+     "title": "87% of dog meat farms closed ahead of February ban",
+     "url": "https://www.koreatimes.co.kr/business/companies/20261011/87-of-dog-meat-farms-closed-ahead-of-february-ban",
+     "date": "2026-10-11",
+     "grade": "B"
+    }
+   ],
+   "next": "2027-04",
+   "prediction": "p-mexico-law",
+   "move": "up",
+   "forDogs": "good",
+   "context": "More countries are setting national rules on how dogs must be bred, kept and cared for."
+  }
+ ],
+ "predictions": [
+  {
+   "id": "p-vet-prices",
+   "text": "Large UK vet groups will publish their price lists, pet care plan details and cremation prices online by the end of December 2026.",
+   "likelihood": "Likely",
+   "basis": "The order is legally binding and sets December 2026 for large providers.",
+   "wrongIf": "The deadline is delayed or challenged.",
+   "check": "2027-01-31",
+   "made": "2026-10-24",
+   "status": "Open"
+  },
+  {
+   "id": "p-korea-ban",
+   "text": "South Korea's dog meat ban will start on 7 February 2027 as planned.",
+   "likelihood": "Likely",
+   "basis": "Farm closures are running ahead of the government's plan.",
+   "wrongIf": "The start date is pushed back or farms are given more time.",
+   "check": "2027-02-28",
+   "made": "2026-10-24",
+   "status": "Open"
+  },
+  {
+   "id": "p-scotland-theft",
+   "text": "Scotland will set a start date for the new dog theft offence by the end of April 2027.",
+   "likelihood": "About even",
+   "basis": "The Act passed in February 2026 but the offence needs regulations to start. We've seen no date yet.",
+   "wrongIf": "No regulations are made by the end of April 2027.",
+   "check": "2027-04-30",
+   "made": "2026-10-24",
+   "status": "Open"
+  },
+  {
+   "id": "p-cost-of-living",
+   "text": "More UK research will link the cost of living to dogs missing out on vet care or training in the next 6 months.",
+   "likelihood": "Likely",
+   "basis": "Two studies in 2026 already show this, and money pressure on households hasn't eased.",
+   "wrongIf": "New data shows guardians spending more on dog care, not less.",
+   "check": "2027-04-30",
+   "made": "2026-10-24",
+   "status": "Open"
+  },
+  {
+   "id": "p-multi-animal",
+   "text": "The RSPCA's full-year figures for 2026 will show more cases with 10 or more animals at one address than the more than 4,200 they reported for 2025.",
+   "likelihood": "Likely",
+   "basis": "They reported 3,280 cases so far in 2026, about 410 a month. At that rate, by our own working, the year would end near 4,900.",
+   "wrongIf": "The full-year figure is 4,200 or lower, or the RSPCA changes how it counts cases.",
+   "check": "2027-04-30",
+   "made": "2026-10-24",
+   "status": "Open"
+  },
+  {
+   "id": "p-wales-greyhound",
+   "text": "The Welsh Government will announce the start date for their greyhound racing ban by the end of June 2027.",
+   "likelihood": "About even",
+   "basis": "The law allows any start date from April 2027 to April 2030. We haven't seen a date announced yet.",
+   "wrongIf": "No start date is announced by 30 June 2027.",
+   "check": "2027-06-30",
+   "made": "2026-10-24",
+   "status": "Open"
+  },
+  {
+   "id": "p-frenchie-2026",
+   "text": "Royal Kennel Club figures for 2026 will show fewer than 7,750 French bulldog registrations, below 2025.",
+   "likelihood": "Likely",
+   "basis": "Registrations in the first three months of 2026 were 1,400, down 37% on the same period in 2025 (Royal Kennel Club figures, reported by PDSA).",
+   "wrongIf": "The 2026 total is 7,750 or higher.",
+   "check": "2027-03-31",
+   "made": "2026-10-24",
+   "status": "Open"
+  },
+  {
+   "id": "p-ni-lucys-law",
+   "text": "Northern Ireland's Lucy's Law regulations will be laid before the Assembly by the end of January 2027.",
+   "likelihood": "About even",
+   "basis": "DAERA say they aim to bring them forward by the end of 2026, but the rules still need Assembly procedures.",
+   "wrongIf": "No regulations are laid by 31 January 2027.",
+   "check": "2027-01-31",
+   "made": "2026-10-24",
+   "status": "Open"
+  },
+  {
+   "id": "p-mexico-law",
+   "text": "Mexico's Chamber of Deputies will pass the General Law on Animal Welfare by the end of April 2027.",
+   "likelihood": "Likely",
+   "basis": "The Senate passed it with 115 votes to 1, and it is now waiting for the Chamber of Deputies.",
+   "wrongIf": "The Chamber of Deputies hasn't passed it by 30 April 2027, or votes it down.",
+   "check": "2027-04-30",
+   "made": "2026-10-25",
+   "status": "Open"
+  },
+  {
+   "id": "p-vet-bill",
+   "text": "A bill to replace the Veterinary Surgeons Act 1966 will be introduced to the UK Parliament by the end of 2027.",
+   "likelihood": "About even",
+   "basis": "Defra says the plans are well advanced and has bid for time, but no slot is confirmed and the law-making programme is crowded.",
+   "wrongIf": "No bill is introduced by 31 December 2027.",
+   "check": "2027-12-31",
+   "made": "2026-10-25",
+   "status": "Open"
+  }
+ ],
+ "dates": [
+  {
+   "date": "2026-11-01",
+   "what": "Across the UK, guardians of XL bullies and other banned-type dogs must not leave a child under 12 with their dog at home without an adult supervising.",
+   "story": "xl-bully-child-rule"
+  },
+  {
+   "date": "2026-11-04",
+   "what": "The Fireworks Impact Coalition, including the British Veterinary Association, holds an event at Parliament calling for tighter fireworks rules.",
+   "story": "bva-fireworks"
+  },
+  {
+   "date": "2026-12",
+   "what": "Large UK vet groups must start publishing prices, pet care plans and cremation prices.",
+   "story": "vets-cma-order"
+  },
+  {
+   "date": "2026-12",
+   "what": "Northern Ireland's Department of Agriculture aims to bring forward Lucy's Law rules on puppy sales by the end of the year.",
+   "story": "ni-lucys-law"
+  },
+  {
+   "date": "2027-02-07",
+   "what": "South Korea's ban on breeding, slaughtering and selling dogs for meat starts.",
+   "story": "korea-dog-meat-farms"
+  },
+  {
+   "date": "2027-03",
+   "what": "Smaller vet practices start publishing prices. Large vet groups must cap prescription fees.",
+   "story": "vets-cma-order"
+  },
+  {
+   "date": "2027-04-01",
+   "what": "The earliest date Wales's ban on greyhound racing can start.",
+   "trend": "greyhound-racing-bans"
+  },
+  {
+   "date": "2027-06",
+   "what": "Large vet groups must give written estimates and itemised bills.",
+   "story": "vets-cma-order"
+  },
+  {
+   "date": "2028",
+   "what": "England's private renting ombudsman can look at how landlords handled pet requests.",
+   "trend": "renting-with-dogs"
+  }
+ ],
+ "petitions": {
+  "checked": "2026-10-25",
+  "items": [
+   {
+    "parliament": "UK Parliament",
+    "title": "Provide lifelong vet care and financial support for retired service animals",
+    "url": "https://petition.parliament.uk/petitions/769616",
+    "signatures": 55454,
+    "closes": "2026-12-12"
+   },
+   {
+    "parliament": "Senedd (Wales)",
+    "title": "Challenge the greyhound racing ban in Wales",
+    "url": "https://petitions.senedd.wales/petitions/246936",
+    "signatures": 10528,
+    "closes": "2026-12-01"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Require tracking of companion animal euthanasia to prevent unnecessary deaths",
+    "url": "https://petition.parliament.uk/petitions/766482",
+    "signatures": 10382,
+    "closes": "2026-11-01"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Establish an independent veterinary ombudsman for pet owners",
+    "url": "https://petition.parliament.uk/petitions/771177",
+    "signatures": 5547,
+    "closes": "2026-12-25"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Mandate monthly welfare updates and photos for owners of all seized dogs",
+    "url": "https://petition.parliament.uk/petitions/776778",
+    "signatures": 5097,
+    "closes": "2027-02-06"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Allow charities to continue to re-home adult dogs with historic injuries",
+    "url": "https://petition.parliament.uk/petitions/768000",
+    "signatures": 4063,
+    "closes": "2026-11-20"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Seek agreement with the EU to accept pet passports for UK-EU travel",
+    "url": "https://petition.parliament.uk/petitions/767906",
+    "signatures": 3411,
+    "closes": "2026-11-27"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Amend microchip rules to prevent stolen pets being re-registered without consent",
+    "url": "https://petition.parliament.uk/petitions/781428",
+    "signatures": 1938,
+    "closes": "2027-04-05"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Introduce stronger welfare regulations for pet care services",
+    "url": "https://petition.parliament.uk/petitions/776716",
+    "signatures": 1789,
+    "closes": "2027-02-24"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Review regulation of animal boarding and licensing conditions",
+    "url": "https://petition.parliament.uk/petitions/770225",
+    "signatures": 1185,
+    "closes": "2026-12-19"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Review the regulation of pet insurance premium increases and consumer choice",
+    "url": "https://petition.parliament.uk/petitions/771676",
+    "signatures": 1062,
+    "closes": "2027-01-03"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Ban removing Rescue Back Up details from pet microchips and make them permanent",
+    "url": "https://petition.parliament.uk/petitions/773426",
+    "signatures": 912,
+    "closes": "2027-01-29"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Introduce stricter regulation for pet cremation",
+    "url": "https://petition.parliament.uk/petitions/776679",
+    "signatures": 782,
+    "closes": "2027-02-07"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Change waste classification laws so pet ashes can be buried with owners",
+    "url": "https://petition.parliament.uk/petitions/775921",
+    "signatures": 730,
+    "closes": "2027-01-30"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Require all pet microchip databases to update contact details free of charge",
+    "url": "https://petition.parliament.uk/petitions/781382",
+    "signatures": 507,
+    "closes": "2027-04-14"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Review policies for seized dogs to ensure their welfare",
+    "url": "https://petition.parliament.uk/petitions/781285",
+    "signatures": 490,
+    "closes": "2027-04-12"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Regulate veterinary care costs to improve affordability and accessibility",
+    "url": "https://petition.parliament.uk/petitions/769255",
+    "signatures": 465,
+    "closes": "2026-12-09"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Create and fund a support system for dog attack victims",
+    "url": "https://petition.parliament.uk/petitions/777784",
+    "signatures": 422,
+    "closes": "2027-02-17"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Issue guidance encouraging compassionate leave for companion animal bereavement",
+    "url": "https://petition.parliament.uk/petitions/767777",
+    "signatures": 399,
+    "closes": "2026-11-15"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Cap out-of-hours veterinary fees to prevent pet abandonment",
+    "url": "https://petition.parliament.uk/petitions/764841",
+    "signatures": 375,
+    "closes": "2026-10-27"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Ban betting on sports involving animals, including horses and dogs",
+    "url": "https://petition.parliament.uk/petitions/767280",
+    "signatures": 293,
+    "closes": "2026-11-15"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Review transparency and standardised labelling for pet food",
+    "url": "https://petition.parliament.uk/petitions/780265",
+    "signatures": 265,
+    "closes": "2027-03-17"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Government must regulate veterinary business practices",
+    "url": "https://petition.parliament.uk/petitions/780940",
+    "signatures": 258,
+    "closes": "2027-04-05"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Amend the Pet Abduction Act 2024 to remove exemptions for having lived together",
+    "url": "https://petition.parliament.uk/petitions/772443",
+    "signatures": 238,
+    "closes": "2027-01-10"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Ban greyhound racing in England",
+    "url": "https://petition.parliament.uk/petitions/775117",
+    "signatures": 238,
+    "closes": "2027-01-23"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Require insurers to verify animal boarding licences before providing insurance",
+    "url": "https://petition.parliament.uk/petitions/777590",
+    "signatures": 217,
+    "closes": "2027-02-17"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Add pet heat safety warnings to UK Met Office extreme heat alerts",
+    "url": "https://petition.parliament.uk/petitions/775375",
+    "signatures": 204,
+    "closes": "2027-01-28"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Mandate low noise fireworks, drone and laser displays instead of normal fireworks",
+    "url": "https://petition.parliament.uk/petitions/779197",
+    "signatures": 182,
+    "closes": "2027-03-14"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Fund more pet-friendly homeless shelters",
+    "url": "https://petition.parliament.uk/petitions/781324",
+    "signatures": 137,
+    "closes": "2027-04-02"
+   },
+   {
+    "parliament": "Senedd (Wales)",
+    "title": "Give RSPCA inspectors emergency powers to enter premises to protect animals in immediate danger",
+    "url": "https://petitions.senedd.wales/petitions/247142",
+    "signatures": 120,
+    "closes": "2027-03-23"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Prevent seizure of dogs verified as being under breed minimum height limits",
+    "url": "https://petition.parliament.uk/petitions/782413",
+    "signatures": 114,
+    "closes": "2027-04-14"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Make it an offence to allow off-lead dogs to approach dogs on leads",
+    "url": "https://petition.parliament.uk/petitions/771660",
+    "signatures": 113,
+    "closes": "2027-01-01"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Strengthen UK animal welfare laws on breeding, sales, and cruelty bans for life",
+    "url": "https://petition.parliament.uk/petitions/770607",
+    "signatures": 109,
+    "closes": "2026-12-23"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Introduce license requirement for pet sitters and dog walkers",
+    "url": "https://petition.parliament.uk/petitions/773056",
+    "signatures": 104,
+    "closes": "2027-01-13"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Introduce lifetime bans for all animal abusers and DBS checks for pet sitters",
+    "url": "https://petition.parliament.uk/petitions/767555",
+    "signatures": 103,
+    "closes": "2026-11-14"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Require local authorities to scan cats and dogs if found deceased",
+    "url": "https://petition.parliament.uk/petitions/765947",
+    "signatures": 99,
+    "closes": "2026-10-30"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Consult on a national system to report suspected pet-food-related illness",
+    "url": "https://petition.parliament.uk/petitions/783719",
+    "signatures": 81,
+    "closes": "2027-04-22"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Prevent animals from working or travelling in temperatures over 30 degrees",
+    "url": "https://petition.parliament.uk/petitions/775082",
+    "signatures": 80,
+    "closes": "2027-01-24"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Mandatory vet scanning of cats' and dogs' microchips",
+    "url": "https://petition.parliament.uk/petitions/776324",
+    "signatures": 78,
+    "closes": "2027-02-04"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Create an earned muzzle-exemption pathway for exempt XL Bully dogs",
+    "url": "https://petition.parliament.uk/petitions/782337",
+    "signatures": 71,
+    "closes": "2027-04-16"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Ban euthanasia of healthy pets, create register of owners who have attempted it",
+    "url": "https://petition.parliament.uk/petitions/767158",
+    "signatures": 66,
+    "closes": "2026-11-11"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Create a national plan to protect pets and livestock during emergency disasters",
+    "url": "https://petition.parliament.uk/petitions/778784",
+    "signatures": 62,
+    "closes": "2027-03-04"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Require outdoor venues to ban dog access in extreme hot weather",
+    "url": "https://petition.parliament.uk/petitions/770773",
+    "signatures": 60,
+    "closes": "2026-12-22"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Ban the import of dogs into the UK from areas where Brucella canis is endemic",
+    "url": "https://petition.parliament.uk/petitions/775020",
+    "signatures": 48,
+    "closes": "2027-01-24"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Extend pet keeping rights to social housing tenants",
+    "url": "https://petition.parliament.uk/petitions/767732",
+    "signatures": 48,
+    "closes": "2026-11-14"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Make allowing dog attacks on cats a specific offence",
+    "url": "https://petition.parliament.uk/petitions/783960",
+    "signatures": 38,
+    "closes": "2027-04-23"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Make pet-sitting apps request an Animal Activities Licence for pet boarding",
+    "url": "https://petition.parliament.uk/petitions/769818",
+    "signatures": 34,
+    "closes": "2026-12-17"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Close the 'freeholder loophole': give flat tenants the fair right to keep pets",
+    "url": "https://petition.parliament.uk/petitions/780087",
+    "signatures": 33,
+    "closes": "2027-03-23"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Legally require owners exchange details when their dog attacks another pet",
+    "url": "https://petition.parliament.uk/petitions/781830",
+    "signatures": 33,
+    "closes": "2027-04-08"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Ban shock and prong collars for dogs",
+    "url": "https://petition.parliament.uk/petitions/783314",
+    "signatures": 32,
+    "closes": "2027-04-20"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Fully subsidise core vaccinations for every dog",
+    "url": "https://petition.parliament.uk/petitions/766038",
+    "signatures": 27,
+    "closes": "2026-11-01"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Ban pet-owner discrimination during the tenancy application process",
+    "url": "https://petition.parliament.uk/petitions/770201",
+    "signatures": 26,
+    "closes": "2026-12-15"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Reintroduce dog licences for dog owners",
+    "url": "https://petition.parliament.uk/petitions/782903",
+    "signatures": 17,
+    "closes": "2027-04-21"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Ensure dog theft is always treated as a criminal matter, not a civil dispute",
+    "url": "https://petition.parliament.uk/petitions/776342",
+    "signatures": 14,
+    "closes": "2027-02-04"
+   },
+   {
+    "parliament": "UK Parliament",
+    "title": "Require dogs to undergo mandatory sociability tests and introduce mitigations",
+    "url": "https://petition.parliament.uk/petitions/776802",
+    "signatures": 11,
+    "closes": "2027-02-13"
+   },
+   {
+    "parliament": "Senedd (Wales)",
+    "title": "Molly's Law: compulsory licensing, inspections, public register, and real penalties to protect pets",
+    "url": "https://petitions.senedd.wales/petitions/247158",
+    "signatures": 8,
+    "closes": "2027-04-22"
+   }
+  ]
+ },
+ "podcast": {
+  "show": "Just a Dog Podcast",
+  "title": "Dog mating, artificial insemination and whelping in the UK, with Stan Airey | Part 2",
+  "description": "Nadine talks with Stan Airey, who has helped dogs give birth for more than 50 years, about home whelping, artificial insemination and why fertility services in England don't need a licence.",
+  "length": "1 hr 26 min",
+  "links": [
+   {
+    "label": "Spotify",
+    "url": "https://open.spotify.com/episode/0F0QAHqmrZbhKMxu6QjHwe"
+   },
+   {
+    "label": "Apple Podcasts",
+    "url": "https://podcasts.apple.com/gb/podcast/dog-mating-artificial-insemination-and-whelping-in-the/id1830884665?i=1000797108300"
+   },
+   {
+    "label": "Amazon Music",
+    "url": "https://music.amazon.co.uk/podcasts/92efcab9-b7a1-489a-a468-b11f2a9650f1/episodes/c52b530a-e983-4561-9e44-5293a04c5715/just-a-dog-podcast-dog-mating-artificial-insemination-and-whelping-in-the-uk-with-stan-airey-part-2"
+   }
+  ],
+  "checked": "2026-10-25"
+ },
+ "subscribe": {
+  "url": "https://just-a-dog-weekly.beehiiv.com/subscribe"
+ },
+ "listen": {
+  "links": [
+   {
+    "label": "Spotify",
+    "url": "https://creators.spotify.com/pod/profile/justadogpodcast"
+   },
+   {
+    "label": "YouTube",
+    "url": "https://www.youtube.com/@justadogpodcast?sub_confirmation=1"
+   },
+   {
+    "label": "Apple Podcasts",
+    "url": "https://podcasts.apple.com/gb/podcast/just-a-dog-podcast/id1830884665"
+   },
+   {
+    "label": "Amazon Music",
+    "url": "https://music.amazon.co.uk/podcasts/92efcab9-b7a1-489a-a468-b11f2a9650f1/just-a-dog-podcast"
+   }
+  ],
+  "social": [
+   {
+    "label": "Instagram",
+    "url": "https://www.instagram.com/justadogpodcast/"
+   },
+   {
+    "label": "Facebook",
+    "url": "https://www.facebook.com/profile.php?id=61577887054990"
+   },
+   {
+    "label": "TikTok",
+    "url": "https://www.tiktok.com/@justadogpodcast"
+   },
+   {
+    "label": "LinkedIn",
+    "url": "https://www.linkedin.com/company/goofles/"
+   }
+  ]
+ }
+}
+</script>
+
+<script>
+(function(){
+  const D = JSON.parse(document.getElementById('dw-data').textContent);
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const beatById = Object.fromEntries(D.beats.map(b => [b.id, b]));
+  const storyById = Object.fromEntries(D.stories.map(s => [s.id, s]));
+  const trendById = Object.fromEntries(D.trends.map(t => [t.id, t]));
+  const predById = Object.fromEntries((D.predictions||[]).map(p => [p.id, p]));
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function fmt(iso, withDay){
+    if(!iso) return '';
+    const p = String(iso).split('-');
+    if(p.length === 1) return p[0];
+    if(p.length === 2) return MONTHS[+p[1]-1] + ' ' + p[0];
+    const d = new Date(Date.UTC(+p[0], +p[1]-1, +p[2]));
+    return (withDay ? DAYS[d.getUTCDay()] + ' ' : '') + (+p[2]) + ' ' + MONTHS[+p[1]-1] + ' ' + p[0];
+  }
+  const sortKey = s => (s.reported || s.date || '');
+  const WEIGHT = {High:3, Medium:2, Low:1};
+  const TONE = {positive:'Good news', mixed:'Mixed', confronting:'Confronting'};
+  const GRADE = {A:'Primary', B:'Established', C:'Interested party', D:'Signal'};
+  const ARROW = {up:'↑', down:'↓', flat:'→', unclear:'?'};
+  const MOVE = {up:'Growing', down:'Shrinking', flat:'Holding steady', unclear:'Too early to tell'};
+  const FORDOGS = {good:'Good for dogs', bad:'Not good for dogs', mixed:'Mixed for dogs'};
+  const num = n => Number(n||0).toLocaleString('en-GB');
+  function trendItem(t){
+    return `<li><span class="arrow" aria-hidden="true">${ARROW[t.move]||'?'}</span><span><span class="tname">${esc(t.name)}</span>
+      <span class="tline"><span>${esc(MOVE[t.move]||t.direction)}</span><span class="fd ${esc(t.forDogs)}">${esc(FORDOGS[t.forDogs]||'')}</span><span class="stage ${esc(t.stage)}">${esc(cap(t.stage))}</span></span>
+      <p class="tctx">${esc(t.context||t.evidence)}</p></span></li>`;
+  }
+  const TREND_KEY = `<p class="key">The arrow shows which way it's moving: ↑ growing, → holding steady, ↓ shrinking. The label says whether that's good for dogs. Stage shows how sure we are it's real: a signal is one story, a pattern shows up in several places, a trend holds over months.</p>`;
+  function petitionItem(x){
+    const today = new Date().toISOString().slice(0,10);
+    const when = x.closes ? (x.closes === today ? ' · <strong>Closes today</strong>' : ' · Closes ' + esc(fmt(x.closes))) : '';
+    return `<li><span class="sig">${num(x.signatures)}</span><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)} ↗</a><span class="pmeta">${esc(x.parliament)}${when}</span></li>`;
+  }
+  const PETITION_NOTE = `<p class="key">Signatures as of ${esc(fmt((D.petitions||{}).checked))}. Open the petition for the live count. UK Parliament: 10,000 signatures gets a government response, 100,000 gets considered for a debate. Senedd: 250 gets considered by its Petitions Committee, 10,000 gets considered for a debate. Listing a petition doesn't mean we support it.</p>`;
+
+  let editionId = D.editions[0].id;
+  try { const saved = localStorage.getItem('wid-edition'); if(saved && D.editions.some(e => e.id === saved)) editionId = saved; } catch(e){}
+  const edition = () => D.editions.find(e => e.id === editionId) || D.editions[0];
+
+  // Edition picker
+  const sel = document.getElementById('edition');
+  sel.innerHTML = D.editions.map((e,i) => `<option value="${esc(e.id)}">${esc(e.label)}${i===0?' (latest)':''}</option>`).join('');
+  sel.value = editionId;
+  sel.addEventListener('change', () => { editionId = sel.value; try{localStorage.setItem('wid-edition', editionId)}catch(e){} render(); });
+
+  // Nav
+  const navItems = [{id:'front', name:'Home'}].concat(D.beats.map(b => ({id:b.id, name:b.name})), [{id:'trends', name:'Trends'}, {id:'petitions', name:'Petitions'}, {id:'about', name:'About'}]);
+  const nav = document.getElementById('nav');
+  nav.innerHTML = navItems.map(n => `<a href="#${n.id}" data-id="${n.id}">${esc(n.name)}</a>`).join('');
+  const navL = document.getElementById('nav-left'), navR = document.getElementById('nav-right');
+  function navArrows(){
+    const max = nav.scrollWidth - nav.clientWidth;
+    navL.hidden = nav.scrollLeft <= 4;
+    navR.hidden = nav.scrollLeft >= max - 4;
+  }
+  navL.addEventListener('click', () => nav.scrollBy({left: -nav.clientWidth * 0.7, behavior: 'smooth'}));
+  navR.addEventListener('click', () => nav.scrollBy({left: nav.clientWidth * 0.7, behavior: 'smooth'}));
+  nav.addEventListener('scroll', navArrows, {passive:true});
+  window.addEventListener('resize', navArrows);
+  setTimeout(navArrows, 0);
+  try { document.fonts.ready.then(navArrows); } catch(err){}
+  const L = D.listen || {links:[], social:[]};
+
+  const ICONS = {
+    Spotify: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7 9.3c3.4-1 7.3-.7 10.2 1M7.6 12.4c2.8-.8 5.9-.5 8.2.9M8.2 15.3c2.2-.6 4.4-.4 6.2.7" fill="none" stroke="#0e067d" stroke-width="1.7" stroke-linecap="round"/></svg>',
+    YouTube: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="M10 9v6l5-3z" fill="#0e067d"/></svg>',
+    'Apple Podcasts': '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.3 16.5a7.5 7.5 0 1 1 11.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8.9 13.8a4 4 0 1 1 6.2 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="10.8" r="1.8" fill="currentColor"/><path d="M12 13.5c-1 0-1.6.6-1.5 1.5l.5 5c.1.6.4 1 1 1s.9-.4 1-1l.5-5c.1-.9-.5-1.5-1.5-1.5z" fill="currentColor"/></svg>',
+    'Amazon Music': '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 16V6l9-2v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7" cy="16" r="2.2" fill="currentColor"/><circle cx="16" cy="14" r="2.2" fill="currentColor"/><path d="M3.5 19.5c5 2.7 12 2.7 17 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18.8 18.3l1.9 1.1-1.2 1.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    Instagram: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg>',
+    Facebook: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.6V11H7v4h2.5v6h4v-6h3l.5-4h-3.5V8.8c0-.5.3-.8.8-.8z" fill="currentColor"/></svg>',
+    LinkedIn: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3V9.75zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1V21h-4v-4.95c0-1.18-.02-2.7-1.65-2.7-1.65 0-1.9 1.29-1.9 2.62V21h-4V9.75z" fill="currentColor"/></svg>',
+    TikTok: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15.5 3c.3 2.2 1.7 3.8 4 4v3.1c-1.5 0-2.9-.5-4-1.2v6.3a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v3.2a2.5 2.5 0 1 0 1.6 2.3V3h3.1z" fill="currentColor"/></svg>'
+  };
+  const iconLinks = list => (list||[]).filter(s => s.url).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener" title="${esc(s.label)}" aria-label="Just a Dog Podcast on ${esc(s.label)}">${ICONS[s.label]||esc(s.label)}</a>`).join('');
+  document.getElementById('foot-listen').innerHTML = iconLinks(L.links);
+  document.getElementById('foot-social').innerHTML = iconLinks(L.social);
+  document.getElementById('foot-cats').innerHTML = D.beats.map(b => `<li><a href="#${b.id}">${esc(b.name)}</a></li>`).join('');
+
+  function sourceList(sources){
+    return `<ul class="sources">${(sources||[]).map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.outlet)}: ${esc(s.title)}</a><small>${esc(fmt(s.date))} · Source grade ${esc(s.grade)}, ${esc(GRADE[s.grade]||'')}${s.note ? '. ' + esc(s.note) : ''}</small></li>`).join('')}</ul>`;
+  }
+
+  function storyHTML(s, size){
+    const b = beatById[s.beat] || {name:''};
+    const first = (s.sources||[])[0];
+    const moreId = 'more-' + s.id;
+    const extra = [];
+    extra.push(`<p class="dog"><span class="lbl">What this means for dogs</span>${esc(s.forDog)}</p>`);
+    if(s.involved) extra.push(`<p><span class="lbl">Who's involved</span>${esc(s.involved)}</p>`);
+    extra.push(`<p><span class="lbl">Status</span>${esc(s.status)}${s.date ? '. Happened ' + esc(fmt(s.date)) : ''}${s.reported && s.reported !== s.date ? ', reported ' + esc(fmt(s.reported)) : ''}.</p>`);
+    if(s.watch) extra.push(`<p><span class="lbl">What to watch</span>${esc(s.watch)}</p>`);
+    if(s.trend && trendById[s.trend]) extra.push(`<p><span class="lbl">Part of a trend</span><a href="#trends">${esc(trendById[s.trend].name)}</a></p>`);
+    extra.push(`<div><span class="lbl">Sources</span>${sourceList(s.sources)}</div>`);
+    return `<article class="story ${size||''}" id="s-${esc(s.id)}">
+      <p class="kicker"><a href="#${esc(s.beat)}">${esc(b.name)}</a> <span class="where">· ${esc(s.where)}</span></p>
+      <h3>${esc(s.headline)}</h3>
+      <p class="summary">${esc(s.summary)}</p>
+      <p class="meta"><span class="tone ${esc(s.tone)}">${esc(TONE[s.tone]||s.tone)}</span><span>${esc(s.confidence)}</span><span>${esc(fmt(s.reported||s.date))}</span></p>
+      <div class="actions">
+        <button class="more-btn" type="button" aria-expanded="false" aria-controls="${moreId}" data-more="${moreId}">What this means for dogs</button>
+        ${first ? `<a class="read" href="${esc(first.url)}" target="_blank" rel="noopener">Read at ${esc(first.outlet)} ↗</a>` : ''}
+      </div>
+      <div class="more" id="${moreId}" hidden>${extra.join('')}</div>
+    </article>`;
+  }
+
+  function byImportance(a,b){ return (WEIGHT[b.weight]||0)-(WEIGHT[a.weight]||0) || sortKey(b).localeCompare(sortKey(a)); }
+
+  function front(){
+    const e = edition();
+    const eIdx = D.editions.indexOf(e);
+    const prev = D.editions[eIdx + 1];
+    const stories = D.stories.filter(s => s.edition === e.id);
+    const topIds = (e.top && e.top.length ? e.top : [e.lead]).filter(id => storyById[id]);
+    const lead = storyById[topIds[0]] || stories.slice().sort(byImportance)[0];
+    const second = topIds.slice(1).map(id => storyById[id]);
+    const used = new Set([lead, ...second]);
+    const rest = stories.filter(s => !used.has(s));
+    const good = rest.filter(s => s.tone === 'positive').sort(byImportance);
+    const uk = rest.filter(s => s.tone === 'mixed' && s.region === 'uk').sort(byImportance);
+    const world = rest.filter(s => s.tone === 'mixed' && s.region !== 'uk').sort(byImportance);
+    const hard = rest.filter(s => s.tone === 'confronting').sort(byImportance);
+    const brief = rest.slice().sort(byImportance).slice(0, 6);
+    const out = [];
+
+    out.push(`<div class="grid">
+      <section class="tops span-8" aria-label="Top stories this week">
+        ${lead ? storyHTML(lead,'lead') : ''}
+        ${second.length ? `<div class="cols two">${second.map(s => storyHTML(s)).join('')}</div>` : ''}
+        ${brief.length ? `<section class="inbrief" aria-labelledby="brief-h"><h2 id="brief-h">Also this week</h2><ul>${brief.map(s => `<li><span class="kicker">${esc((beatById[s.beat]||{}).name||'')} <span class="where">· ${esc(s.where)}</span></span><a href="#s-${esc(s.id)}" data-jump="${esc(s.id)}">${esc(s.headline)}</a></li>`).join('')}</ul></section>` : ''}
+      </section>
+      <div class="side span-4">${podcastCard()}<aside class="panel" aria-labelledby="glance-h">
+        <h2 id="glance-h">This week at a glance</h2>
+        <ol class="glance">${(e.glance||[]).map(g => `<li><span>${g.story ? `<a href="#s-${esc(g.story)}" data-jump="${esc(g.story)}">${esc(g.text)}</a>` : esc(g.text)}</span></li>`).join('')}</ol>
+        <p class="muted" style="margin:6px 0 0;font-size:13px">${esc(e.covers||'')}</p>
+      </aside>${subscribeBox()}</div>`);
+
+    out.push(`<aside class="adspot span-12" aria-label="Advertising">
+      <span class="lbl">Advertise here</span>
+      <p class="ad-h">One space. One brand. Every week.</p>
+      <p>Just a Dog Weekly carries a single advertiser, seen by people who care deeply about dogs and the people who work with them. No clutter, and nothing competing for attention. We only accept brands that put dogs first.</p>
+      <p>To book it, email <span class="addr">hello@goofles.com</span><button class="copy-btn" type="button" data-copy="hello@goofles.com">Copy</button></p>
+    </aside>`);
+
+    const section = (title, note, items, extraTop) => items.length ? `<section class="block span-12">
+        <div class="sec-head"><h2>${esc(title)}</h2>${note ? `<p>${esc(note)}</p>` : ''}</div>
+        ${extraTop||''}
+        <div class="cols">${items.map(s => storyHTML(s)).join('')}</div>
+      </section>` : '';
+
+    out.push(section('Good news', 'What went well for dogs this week', good));
+    out.push(section('UK', 'England, Scotland, Wales and Northern Ireland', uk));
+    out.push(section('Around the world', '', world));
+    out.push(section('Confronting', '', hard, `<p class="warn">These stories describe neglect, harm or a death involving dogs. Graphic details are left out.</p>`));
+
+    // Landscape
+    const tally = list => { const c = {}; D.beats.forEach(b => c[b.id] = {n:0, tones:{positive:0,mixed:0,confronting:0}}); list.forEach(s => (s.beats||[s.beat]).forEach(id => { if(c[id]){ c[id].n++; c[id].tones[s.tone]++; } })); return c; };
+    const counts = tally(stories);
+    const prevCounts = prev ? tally(D.stories.filter(s => s.edition === prev.id)) : null;
+    const pills = c => c.n ? Object.entries(c.tones).filter(([,v]) => v > 0).map(([k,v]) => `<span class="pill ${k}">${v} ${esc(TONE[k].toLowerCase())}</span>`).join('') : '<span class="muted">Quiet</span>';
+    const change = id => { const d = counts[id].n - prevCounts[id].n; return `<span class="chg">${d > 0 ? '↑ ' + d : d < 0 ? '↓ ' + (-d) : 'Same'}</span>`; };
+    const topIn = id => stories.filter(s => (s.beats||[s.beat]).includes(id)).sort(byImportance)[0];
+    out.push(`<section class="block span-12" aria-labelledby="land-h">
+      <div class="sec-head"><h2 id="land-h">The dog landscape this week</h2><p>How much dog news there was in each category, and whether it was good news, mixed or confronting.</p></div>
+      <div class="tbl"><table>
+        <thead><tr><th scope="col">Category</th><th scope="col">Stories</th>${prevCounts ? '<th scope="col">Vs last week</th>' : ''}<th scope="col">Mood</th><th scope="col">Main story</th></tr></thead>
+        <tbody>${D.beats.map(b => { const c = counts[b.id]; const t = topIn(b.id); return `<tr><td><a href="#${b.id}">${esc(b.name)}</a></td><td class="num">${c.n}</td>${prevCounts ? `<td>${change(b.id)}</td>` : ''}<td>${pills(c)}</td><td>${t ? `<a href="#s-${esc(t.id)}" data-jump="${esc(t.id)}">${esc(t.headline)}</a>` : `<span class="muted">${esc((e.quiet||{})[b.id] || 'Nothing this week.')}</span>`}</td></tr>`; }).join('')}</tbody>
+      </table></div>
+    </section>`);
+
+    const tr = D.trends.filter(t => t.stage === 'trend' || t.stage === 'pattern').slice(0, 5);
+    out.push(`<section class="block span-6" aria-labelledby="tr-h">
+      <div class="sec-head"><h2 id="tr-h">Trends to watch</h2><p><a href="#trends">All trends and predictions</a></p></div>
+      ${TREND_KEY}
+      <ul class="tlist">${tr.map(trendItem).join('')}</ul>
+    </section>`);
+
+    out.push(`<section class="block span-6" aria-labelledby="next-h">
+      <div class="sec-head"><h2 id="next-h">What's next</h2><p>Dates to watch</p></div>
+      <p class="key">Coming deadlines, decisions and events that will shape what happens to dogs. Each one links to a story or trend on this page, and we follow it up when the date arrives.</p>
+      <ul class="dates">${(D.dates||[]).slice().sort((a,b)=>String(a.date).localeCompare(String(b.date))).map(d => `<li><time>${esc(fmt(d.date))}</time><span>${esc(d.what)}</span></li>`).join('')}</ul>
+    </section>`);
+
+    out.push(`<section class="block span-6" aria-labelledby="sig-h">
+      <div class="sec-head"><h2 id="sig-h">Early signs of change</h2><p>Could grow into bigger stories</p></div>
+      <ul class="plain">${(e.signals||[]).map(s => `<li>${esc(s.text)}${moreLink(s)}</li>`).join('')}</ul>
+    </section>
+    <section class="block span-6" aria-labelledby="blind-h">
+      <div class="sec-head"><h2 id="blind-h">Not making headlines</h2><p>Stories that get little coverage</p></div>
+      <ul class="plain">${(e.blindspots||[]).map(s => typeof s === 'string' ? `<li>${esc(s)}</li>` : `<li>${esc(s.text)}${moreLink(s)}</li>`).join('')}</ul>
+    </section>`);
+
+    const todayISO = new Date().toISOString().slice(0,10);
+    const pets = ((D.petitions||{}).items||[]).filter(x => !x.closes || x.closes >= todayISO).sort((a,b) => b.signatures - a.signatures);
+    if(pets.length) out.push(`<section class="block span-12" aria-labelledby="pet-h">
+      <div class="sec-head"><h2 id="pet-h">Live petitions affecting dogs</h2><p><a href="#petitions">All ${pets.length} open petitions</a></p></div>
+      <p style="margin:0;font-weight:500">Support the causes you care about most.</p>
+      ${PETITION_NOTE}
+      <ul class="plist">${pets.slice(0, 6).map(petitionItem).join('')}</ul>
+    </section>`);
+
+    out.push(`</div>`);
+    return out.join('');
+  }
+
+  function subscribeBox(banner){
+    const s = D.subscribe;
+    if(!s || !s.url) return '';
+    const id = banner ? 'sub-h2' : 'sub-h';
+    return `<section class="sub${banner ? ' banner' : ''}" aria-labelledby="${id}">
+      <div class="sub-text"><h2 id="${id}">Subscribe</h2>
+      <p>Subscribe to Just a Dog Weekly for a round-up of what's happening across the dog world, delivered to your inbox every Sunday.</p></div>
+      <div class="sub-act"><a class="sub-btn" href="${esc(s.url)}" target="_blank" rel="noopener">Subscribe ↗</a>
+      <small>You can unsubscribe at any time.</small></div>
+    </section>`;
+  }
+  document.getElementById('foot-sub').innerHTML = subscribeBox(true);
+
+  function podcastCard(){
+    const p = D.podcast;
+    if(!p) return '';
+    const names = (p.links||[]).map(l => l.url ? `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>` : esc(l.label));
+    const list = names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names.join('');
+    const links = list ? [`<span>Listen on ${list}</span>`] : [];
+    return `<section class="pod" aria-labelledby="pod-h">
+      <h2 id="pod-h">${esc(p.show)}</h2>
+      <span class="lbl pod-lbl"><svg class="ico" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 14v-2a8 8 0 0 1 16 0v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="3" y="14" width="5" height="7" rx="1.5" fill="currentColor"/><rect x="16" y="14" width="5" height="7" rx="1.5" fill="currentColor"/></svg>The latest episode</span>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.description)}${p.length ? ' ' + esc(p.length) + '.' : ''}</p>
+      <div class="listen">${links.join('')}</div>
+    </section>`;
+  }
+
+  function moreLink(s){
+    const l = s && s.link;
+    if(l && l.story && storyById[l.story]) return ` <a class="more-link" href="#s-${esc(l.story)}" data-jump="${esc(l.story)}">${esc(l.label||'Read more')} ›</a>`;
+    if(l && l.page) return ` <a class="more-link" href="#${esc(l.page)}">${esc(l.label||'Read more')} ›</a>`;
+    if(l && l.url) return ` <a class="more-link" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label||'Read more')} ↗</a>`;
+    if(s && s.story && storyById[s.story]) return ` <a class="more-link" href="#s-${esc(s.story)}" data-jump="${esc(s.story)}">Read the story ›</a>`;
+    return '';
+  }
+
+  function cap(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
+  function beatPage(id){
+    const b = beatById[id];
+    const items = D.stories.filter(s => (s.beats||[s.beat]).includes(id)).sort((a,b) => sortKey(b).localeCompare(sortKey(a)));
+    const trends = D.trends.filter(t => t.beat === id);
+    const quiet = (edition().quiet||{})[id];
+    const byEd = {};
+    items.forEach(s => (byEd[s.edition] = byEd[s.edition] || []).push(s));
+    const groups = D.editions.filter(e => byEd[e.id]).map(e => `<section class="block span-12">
+        <div class="sec-head"><h2>${esc(e.label)}</h2></div>
+        <div class="cols">${byEd[e.id].map(s => storyHTML(s)).join('')}</div>
+      </section>`).join('');
+    return `<div class="grid">
+      <header class="page-head span-12"><h1>${esc(b.name)}</h1><p>${esc(b.blurb)}</p></header>
+      ${groups || `<section class="block span-12"><div class="sec-head"><h2>No stories yet</h2></div><p class="muted" style="margin:0">${esc(quiet || 'Nothing in this category yet. It is checked every week.')}</p></section>`}
+      ${trends.length ? `<section class="block span-12"><div class="sec-head"><h2>Trends in ${esc(b.name.toLowerCase())}</h2><p><a href="#trends">All trends</a></p></div>${trendTable(trends)}</section>` : ''}
+    </div>`;
+  }
+
+  function trendTable(list){
+    return `<div class="tbl"><table>
+      <thead><tr><th scope="col">Trend</th><th scope="col">Moving</th><th scope="col">Stage</th><th scope="col">Evidence</th><th scope="col">First seen</th><th scope="col">Next check</th></tr></thead>
+      <tbody>${list.map(t => `<tr><td><strong>${esc(t.name)}</strong><br><a class="muted" href="#${esc(t.beat)}" style="font-weight:400">${esc((beatById[t.beat]||{}).name||'')}</a></td><td><span class="arrow" style="font-size:24px">${ARROW[t.move]||'?'}</span><br>${esc(MOVE[t.move]||t.direction)}${t.speed ? `<br><span class="muted">${esc(t.speed)}</span>` : ''}</td><td><span class="stage ${esc(t.stage)}">${esc(cap(t.stage))}</span></td><td>${esc(t.context||'')}${t.context ? '<br>' : ''}<span class="muted">${esc(t.evidence)}</span>${t.sources ? `<div style="margin-top:6px">${sourceList(t.sources)}</div>` : ''}</td><td>${esc(fmt(t.first))}</td><td>${esc(fmt(t.next))}</td></tr>`).join('')}</tbody>
+    </table></div>`;
+  }
+
+  function trendsPage(){
+    const order = {trend:0, pattern:1, signal:2};
+    const list = D.trends.slice().sort((a,b) => (order[a.stage]-order[b.stage]) || a.name.localeCompare(b.name));
+    const preds = (D.predictions||[]);
+    return `<div class="grid">
+      <header class="page-head span-12"><h1>Trends</h1><p>What's moving in the dog world over time, and where we think it's heading. We only call something a trend once it holds up.</p></header>
+      <section class="block span-12">
+        <div class="sec-head"><h2>The tracker</h2></div>
+        ${TREND_KEY}
+        ${trendTable(list)}
+      </section>
+      <section class="block span-12">
+        <div class="sec-head"><h2>Predictions</h2><p>Each one has a date we check it. We keep the ones we get wrong.</p></div>
+        <div class="tbl"><table>
+          <thead><tr><th scope="col">Prediction</th><th scope="col">How likely</th><th scope="col">Based on</th><th scope="col">We're wrong if</th><th scope="col">Check by</th><th scope="col">Result</th></tr></thead>
+          <tbody>${preds.map(p => `<tr><td><strong>${esc(p.text)}</strong></td><td>${esc(p.likelihood)}</td><td>${esc(p.basis)}</td><td>${esc(p.wrongIf)}</td><td>${esc(fmt(p.check))}</td><td>${esc(p.status)}${p.outcome ? `<br><span class="muted">${esc(p.outcome)}</span>` : ''}</td></tr>`).join('')}</tbody>
+        </table></div>
+      </section>
+    </div>`;
+  }
+
+  function petitionsPage(){
+    const todayISO = new Date().toISOString().slice(0,10);
+    const pets = ((D.petitions||{}).items||[]).filter(x => !x.closes || x.closes >= todayISO).sort((a,b) => b.signatures - a.signatures);
+    const groups = [...new Set(pets.map(x => x.parliament))];
+    return `<div class="grid">
+      <header class="page-head span-12"><h1>Petitions</h1><p>Open petitions about dogs on UK government and parliament websites. Signing is free and open to UK residents.</p></header>
+      <section class="block span-12">${PETITION_NOTE}</section>
+      ${groups.map(g => `<section class="block span-12"><div class="sec-head"><h2>${esc(g)}</h2><p>${pets.filter(x => x.parliament === g).length} open</p></div><ul class="plist">${pets.filter(x => x.parliament === g).map(petitionItem).join('')}</ul></section>`).join('')}
+    </div>`;
+  }
+
+  function aboutPage(){
+    return `<div class="grid"><div class="span-12 prose">
+      <header class="page-head"><h1>About Just a Dog Weekly</h1><p>Just a Dog Weekly is a round-up of what's happening in the dog world, every Sunday. It's a Goofles Media project, from the home of Just a Dog Podcast.</p></header>
+      <h2>What you'll find</h2>
+      <p>The week's most important dog news, good and hard, across law and government, welfare, breeding, rescue, vets and health, science, food, shopping and ads, crime, training, working dogs, life with dogs, the environment and the wider world. UK first, then international. Plus the trends to watch, the dates coming up and the live petitions you can sign.</p>
+      <h2>What makes it different</h2>
+      <ul class="plain">
+        <li><strong>Dog-centred.</strong> Every story says what it means for dogs, not just for people.</li>
+        <li><strong>No product pushing.</strong> No sponsored stories, no affiliate links, no paid placements. There's one clearly marked ad space, and that's it.</li>
+        <li><strong>Trusted sources only.</strong> Every story is checked before it goes in, and links to the original.</li>
+        <li><strong>The whole picture.</strong> Good news sits alongside the hard stories, so you see what's really happening.</li>
+        <li><strong>More than headlines.</strong> We track how things change week to week, so you can see where the dog world is heading.</li>
+      </ul>
+      <h2>We curate, we don't publish</h2>
+      <p>We don't report the news ourselves. Every story belongs to the outlet that reported it. We summarise it in our own words and link to the original, so read that for the full story.</p>
+      <h2>What the labels mean</h2>
+      <dl class="defs">
+        <dt>Good news, Mixed, Confronting</dt><dd>The overall tone of a story for dogs.</dd>
+        <dt>Confirmed</dt><dd>Checked against an official or original source.</dd>
+        <dt>Reported</dt><dd>Reported by an established outlet or organisation.</dd>
+        <dt>Claimed</dt><dd>Said by one organisation, often about their own work.</dd>
+        <dt>Source grades</dt><dd>A: official or original sources. B: established press, charities and vet bodies. C: organisations with an interest in the story, and we say who they are.</dd>
+      </dl>
+      <h2>Disclaimer</h2>
+      <p>We summarise reporting by other organisations and link to the originals wherever possible. They are responsible for their own reporting, and including a story or petition doesn't mean we endorse it. We check stories when we add them, but details can change, so check the original before relying on it. Nothing here is veterinary, legal or behavioural advice. If you're worried about your dog, speak to a vet. If a dog is in danger, contact the police.</p>
+      <h2>Get in touch</h2>
+      <p>Spotted something we should cover, or something we got wrong? Email <span class="addr">hello@goofles.com</span>.</p>
+    </div></div>`;
+  }
+
+  const view = document.getElementById('view');
+  function render(focusStory){
+    const e = edition();
+    document.getElementById('pubdate').textContent = fmt(e.published, true);
+    let id = (location.hash || '').slice(1);
+    let jump = null;
+    if(id.startsWith('s-')){ jump = id.slice(2); id = 'front'; }
+    if(focusStory) jump = focusStory;
+    if(!id || !(id === 'front' || id === 'trends' || id === 'petitions' || id === 'about' || beatById[id])) id = 'front';
+    nav.querySelectorAll('a').forEach(a => { if(a.dataset.id === id) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    view.innerHTML = id === 'front' ? front() : id === 'trends' ? trendsPage() : id === 'petitions' ? petitionsPage() : id === 'about' ? aboutPage() : beatPage(id);
+    const cur = nav.querySelector('[aria-current="page"]');
+    if(cur && cur.scrollIntoView) { try { cur.scrollIntoView({block:'nearest', inline:'nearest'}); } catch(err){} }
+    fitBrief();
+    if(jump){ openStory(jump); }
+  }
+
+  function fitBrief(){
+    const box = view.querySelector('.inbrief'); if(!box) return;
+    const tops = view.querySelector('.tops'), side = view.querySelector('.side');
+    const items = [...box.querySelectorAll('li')];
+    items.forEach(li => li.hidden = false); box.hidden = false;
+    if(!tops || !side || window.innerWidth <= 860){ items.forEach((li,i) => li.hidden = i >= 4); return; }
+    let n = items.length;
+    while(n > 2 && tops.offsetHeight > side.offsetHeight + 24){ items[--n].hidden = true; items[--n].hidden = true; }
+    if(tops.offsetHeight > side.offsetHeight + 24) box.hidden = true;
+  }
+  window.addEventListener('resize', () => { if(view.querySelector('.inbrief')) fitBrief(); });
+  try { document.fonts.ready.then(() => fitBrief()); } catch(err){}
+
+  function openStory(id){
+    const el = document.getElementById('s-' + id);
+    if(!el) return;
+    const btn = el.querySelector('[data-more]');
+    if(btn) toggle(btn, true);
+    el.scrollIntoView({block:'start'});
+    window.scrollBy(0, -70);
+  }
+
+  function selectAddr(btn){
+    const el = btn.parentElement.querySelector('.addr');
+    if(!el) return;
+    try { const r = document.createRange(); r.selectNodeContents(el); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch(err){}
+  }
+
+  function toggle(btn, force){
+    const panel = document.getElementById(btn.dataset.more);
+    const open = force != null ? force : btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', String(open));
+    panel.hidden = !open;
+    btn.textContent = open ? 'Show less' : 'What this means for dogs';
+  }
+
+  view.addEventListener('click', ev => {
+    const cp = ev.target.closest('[data-copy]');
+    if(cp){
+      const text = cp.dataset.copy;
+      const done = ok => { cp.textContent = ok ? 'Copied' : 'Select and copy'; setTimeout(() => { cp.textContent = 'Copy'; }, 2000); };
+      try { navigator.clipboard.writeText(text).then(() => done(true), () => { selectAddr(cp); done(false); }); } catch(err){ selectAddr(cp); done(false); }
+      return;
+    }
+    const btn = ev.target.closest('[data-more]');
+    if(btn){ toggle(btn); return; }
+    const j = ev.target.closest('[data-jump]');
+    if(j){
+      const sid = j.dataset.jump;
+      if(document.getElementById('s-' + sid)){ ev.preventDefault(); openStory(sid); }
+      else { ev.preventDefault(); location.hash = 'front'; render(sid); }
+    }
+  });
+  // Keep the name on one line whatever font loads
+  const mark = document.querySelector('.wordmark');
+  function fitMark(){
+    if(!mark) return;
+    mark.style.fontSize = '';
+    const max = mark.closest('.wrap').clientWidth - 32;
+    let size = parseFloat(getComputedStyle(mark).fontSize);
+    while(mark.scrollWidth > max && size > 18){ size -= 2; mark.style.fontSize = size + 'px'; }
+  }
+  fitMark();
+  window.addEventListener('resize', fitMark);
+  try { document.fonts.ready.then(fitMark); } catch(err){}
+
+  // Floating Home button
+  const fn = document.getElementById('floatnav');
+  let goingHome = false;
+  function collapseAll(){ view.querySelectorAll('[data-more][aria-expanded="true"]').forEach(b => toggle(b, false)); }
+  function updateFloat(){
+    const isHome = (location.hash || '#front') === '#front';
+    fn.hidden = isHome && window.scrollY < 600;
+  }
+  window.addEventListener('scroll', updateFloat, {passive:true});
+  window.addEventListener('hashchange', () => {
+    render();
+    if(goingHome || !location.hash.startsWith('#s-')) window.scrollTo(0, 0);
+    goingHome = false;
+    updateFloat();
+  });
+  document.getElementById('fn-home').addEventListener('click', () => {
+    if((location.hash || '#front') === '#front'){ collapseAll(); window.scrollTo(0, 0); updateFloat(); }
+    else { goingHome = true; location.hash = 'front'; }
+  });
+  updateFloat();
+  render();
+})();
+</script>
+
+
+</body></html>
