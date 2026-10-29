@@ -3124,7 +3124,12 @@ footer a{color:var(--ink)}
     mark.style.fontSize = '';
     const max = mark.closest('.wrap').clientWidth - 32;
     let size = parseFloat(getComputedStyle(mark).fontSize);
-    while(mark.scrollWidth > max && size > 18){ size -= 2; mark.style.fontSize = size + 'px'; }
+    // Phones: scale the name up to fill the width, keeping the 16px page margin either side
+    if(window.innerWidth <= 640 && mark.scrollWidth > 0){
+      size = Math.floor(size * max / mark.scrollWidth);
+      mark.style.fontSize = size + 'px';
+    }
+    while(mark.scrollWidth > max && size > 18){ size -= 1; mark.style.fontSize = size + 'px'; }
   }
   fitMark();
   window.addEventListener('resize', fitMark);
