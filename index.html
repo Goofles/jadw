@@ -77,7 +77,7 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(
 main{padding-block:28px 64px}
 .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px}
 .span-8{grid-column:span 8}.span-4{grid-column:span 4}.span-12{grid-column:1/-1}.span-6{grid-column:span 6}
-@media (max-width:860px){.span-8,.span-4,.span-6{grid-column:1/-1}}
+@media (max-width:860px){.span-8,.span-4,.span-6{grid-column:1/-1}.grid{grid-template-columns:minmax(0,1fr)}}
 .block{display:grid;gap:18px;min-width:0;align-content:start}
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:2px solid var(--rule-strong);padding-top:10px;flex-wrap:wrap}
 .sec-head h2{font-family:var(--display);font-weight:400;font-size:34px;line-height:1;margin:0;letter-spacing:.02em;text-transform:uppercase}
@@ -251,7 +251,7 @@ footer a{color:var(--ink)}
 .edbar select{font:inherit;font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--navy);background:var(--soft);border:1px solid var(--rule);border-radius:6px;padding:5px 10px;max-width:72vw;cursor:pointer}
 /* Mobile masthead: centred logo, balanced strapline, date underneath */
 @media (max-width:640px){
-  .mast .wrap{padding-block:10px 26px;gap:0}
+  .mast .wrap{padding-block:10px 26px;gap:0;padding-left:max(5px,env(safe-area-inset-left,0px));padding-right:max(5px,env(safe-area-inset-right,0px))}
   .mast-top{display:contents}
   .logo{order:1;padding-block:22px 16px}
   .curate{order:2;max-width:none;margin:4px auto 0;white-space:nowrap;font-size:min(15px,4vw);line-height:1.45}
@@ -3128,12 +3128,14 @@ footer a{color:var(--ink)}
   function fitMark(){
     if(!mark) return;
     mark.style.fontSize = '';
-    const max = mark.closest('.wrap').clientWidth - 32;
+    const wrapEl = mark.closest('.wrap'), wcs = getComputedStyle(wrapEl);
+    const max = wrapEl.clientWidth - parseFloat(wcs.paddingLeft) - parseFloat(wcs.paddingRight);
     let size = parseFloat(getComputedStyle(mark).fontSize);
-    // Phones: scale the name up to fill the width, keeping the 16px page margin either side
-    if(window.innerWidth <= 640 && mark.scrollWidth > 0){
-      size = Math.floor(size * max / mark.scrollWidth);
-      mark.style.fontSize = size + 'px';
+    // Phones: scale the name up to fill the width, with 5px either side
+    if(window.innerWidth <= 640){
+      const rg = document.createRange(); rg.selectNodeContents(mark);
+      const textW = rg.getBoundingClientRect().width;
+      if(textW > 0){ size = Math.floor(size * max / textW * 10) / 10; mark.style.fontSize = size + 'px'; }
     }
     while(mark.scrollWidth > max && size > 18){ size -= 1; mark.style.fontSize = size + 'px'; }
   }
