@@ -267,12 +267,11 @@ footer a{color:var(--ink)}
 
 <header class="mast">
   <div class="wrap">
-    <div class="mast-top">
+    <div class="mast-top" hidden>
       <span id="pubdate"></span>
     </div>
     <div class="logo">
       <h1 class="wordmark">Just a Dog Weekly</h1>
-      <div class="brand">A Goofles Media project</div>
     </div>
     <p class="curate">Your weekly round-up of dog news.</p>
   </div>
@@ -280,7 +279,7 @@ footer a{color:var(--ink)}
 
 <div class="bar"><div class="wrap navwrap"><button type="button" class="nav-arrow left" id="nav-left" aria-label="Scroll categories left" hidden>‹</button><nav id="nav" aria-label="Categories"></nav><button type="button" class="nav-arrow right" id="nav-right" aria-label="Scroll categories right" hidden>›</button></div></div>
 
-<div class="edbar"><div class="wrap"><label for="edition">Edition <select id="edition"></select></label></div></div>
+<div class="edbar"><div class="wrap"><label for="edition"><select id="edition" aria-label="Choose an edition"></select></label></div></div>
 
 <main class="wrap" id="view" tabindex="-1"></main>
 
@@ -2757,7 +2756,14 @@ footer a{color:var(--ink)}
 
   // Edition picker
   const sel = document.getElementById('edition');
-  sel.innerHTML = D.editions.map((e,i) => `<option value="${esc(e.id)}">${esc(e.label)}${i===0?' (latest)':''}</option>`).join('');
+  // Picker label: "Edition 1, Sun, 25 October 2026"
+  const SHORT_DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  function edLabel(e, i){
+    const p = String(e.published || e.id).split('-');
+    const d = new Date(Date.UTC(+p[0], +p[1]-1, +p[2]));
+    return `Edition ${D.editions.length - i}, ${SHORT_DAYS[d.getUTCDay()]}, ${+p[2]} ${MONTHS[+p[1]-1]} ${p[0]}`;
+  }
+  sel.innerHTML = D.editions.map((e,i) => `<option value="${esc(e.id)}">${esc(edLabel(e,i))}${i===0?' (latest)':''}</option>`).join('');
   sel.value = editionId;
   sel.addEventListener('change', () => { editionId = sel.value; try{localStorage.setItem('wid-edition', editionId)}catch(e){} render(); });
 
