@@ -251,7 +251,7 @@ footer a{color:var(--ink)}
 .edbar select{font:inherit;font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--navy);background:var(--soft);border:1px solid var(--rule);border-radius:6px;padding:5px 10px;max-width:72vw;cursor:pointer}
 /* Mobile masthead: centred logo, balanced strapline, date underneath */
 @media (max-width:640px){
-  .mast .wrap{padding-block:10px 26px;gap:0;padding-left:max(5px,env(safe-area-inset-left,0px));padding-right:max(5px,env(safe-area-inset-right,0px))}
+  .mast .wrap{padding-block:10px 26px;gap:0;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
   .mast-top{display:contents}
   .logo{order:1;padding-block:22px 16px}
   .curate{order:2;max-width:none;margin:4px auto 0;white-space:nowrap;font-size:min(15px,4vw);line-height:1.45}
@@ -3131,7 +3131,7 @@ footer a{color:var(--ink)}
     const wrapEl = mark.closest('.wrap'), wcs = getComputedStyle(wrapEl);
     const max = wrapEl.clientWidth - parseFloat(wcs.paddingLeft) - parseFloat(wcs.paddingRight);
     let size = parseFloat(getComputedStyle(mark).fontSize);
-    // Phones: scale the name up to fill the width, with 5px either side
+    // Phones: scale the name to fill the width, with 28px breathing space either side
     if(window.innerWidth <= 640){
       const rg = document.createRange(); rg.selectNodeContents(mark);
       const textW = rg.getBoundingClientRect().width;
