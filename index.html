@@ -235,6 +235,10 @@ footer a{color:var(--ink)}
 .fd.good{color:var(--accent)}.fd.mixed{color:var(--ink-2)}.fd.bad{background:var(--flag-bg);color:var(--flag-ink);border-color:var(--flag-bg)}
 .tctx{margin:0;font-size:15px}
 .key{margin:0;font-size:13px;color:var(--ink-2)}
+.key p{margin:0 0 4px}
+.ticks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 24px}
+.ticks li::before{content:"\2713";color:var(--accent);font-weight:600;margin-right:10px}
+@media (max-width:520px){.ticks{grid-template-columns:1fr}}
 /* Petitions */
 .plist{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px}
 @media (max-width:860px){.plist{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -306,7 +310,7 @@ footer a{color:var(--ink)}
         <p>Curated by Goofles Media, home of Just a Dog Podcast.</p>
       </div>
     </div>
-    <p class="disclaimer"><strong>Disclaimer.</strong> We summarise reporting by other organisations and link to the originals wherever possible. They are responsible for their own reporting, and including a story or petition doesn't mean we endorse it. We check stories when we add them, but details can change, so check the original before relying on it. Nothing here is veterinary, legal or behavioural advice. If you're worried about your dog, speak to a vet. If a dog is in danger, contact the police. Spotted a mistake? Tell us and we'll correct it.</p>
+    <p class="disclaimer"><strong>Disclaimer.</strong> We summarise reporting by other organisations and link to the original news stories wherever possible. The original authors are responsible for their own reporting, and including a story or a petition doesn't mean we endorse it. We check stories when we add them, but details can change, so check the original before relying on it. Nothing here is veterinary, legal or behavioural advice. If you're worried about your dog, speak to your vet. If a dog is in danger, contact the police.<br>Spotted something we should cover, or something we got wrong? Email hello@goofles.com</p>
   </div>
 </footer>
 
@@ -2744,13 +2748,13 @@ footer a{color:var(--ink)}
       <span class="tline"><span>${esc(MOVE[t.move]||t.direction)}</span><span class="fd ${esc(t.forDogs)}">${esc(FORDOGS[t.forDogs]||'')}</span><span class="stage ${esc(t.stage)}">${esc(cap(t.stage))}</span></span>
       <p class="tctx">${esc(t.context||t.evidence)}</p></span></li>`;
   }
-  const TREND_KEY = `<p class="key">The arrow shows which way it's moving: ↑ growing, → holding steady, ↓ shrinking. The label says whether that's good for dogs. Stage shows how sure we are it's real: a signal is one story, a pattern shows up in several places, a trend holds over months.</p>`;
+  const TREND_KEY = `<div class="key"><p><strong>How to read the tracker</strong></p><p>↑ Growing: it's happening more. → Holding steady: about the same as before. ↓ Shrinking: it's happening less.</p><p>Good for dogs, Mixed for dogs or Not good for dogs: whether that change helps or harms dogs.</p><p>Signal: seen in one story so far. Pattern: seen in 3 or more places. Trend: has held for 3 months or more.</p></div>`;
   function petitionItem(x){
     const today = new Date().toISOString().slice(0,10);
     const when = x.closes ? (x.closes === today ? ' · <strong>Closes today</strong>' : ' · Closes ' + esc(fmt(x.closes))) : '';
     return `<li><span class="sig">${num(x.signatures)}</span><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)} ↗</a><span class="pmeta">${esc(x.parliament)}${when}</span></li>`;
   }
-  const PETITION_NOTE = `<p class="key">Signatures as of ${esc(fmt((D.petitions||{}).checked))}. Open the petition for the live count. UK Parliament: 10,000 signatures gets a government response, 100,000 gets considered for a debate. Senedd: 250 gets considered by its Petitions Committee, 10,000 gets considered for a debate. Listing a petition doesn't mean we support it.</p>`;
+  const PETITION_NOTE = `<div class="key"><p>The signatures below are accurate as of ${esc(fmt((D.petitions||{}).checked))}. Open a petition to see the live count.</p><p><strong>UK Parliament:</strong> open to British citizens and UK residents. At 10,000 signatures, the government responds. At 100,000, it's considered for a debate.</p><p><strong>Senedd (the Welsh Parliament):</strong> at 250 signatures, the Petitions Committee looks at it. At 10,000, it's considered for a debate.</p><p>Listing a petition doesn't mean we support it.</p></div>`;
 
   let editionId = D.editions[0].id;
   try { const saved = localStorage.getItem('wid-edition'); if(saved && D.editions.some(e => e.id === saved)) editionId = saved; } catch(e){}
@@ -2770,7 +2774,7 @@ footer a{color:var(--ink)}
   sel.addEventListener('change', () => { editionId = sel.value; try{localStorage.setItem('wid-edition', editionId)}catch(e){} render(); });
 
   // Nav
-  const navItems = [{id:'front', name:'Home'}].concat(D.beats.map(b => ({id:b.id, name:b.name})), [{id:'trends', name:'Trends'}, {id:'petitions', name:'Petitions'}, {id:'about', name:'About'}]);
+  const navItems = [{id:'front', name:'Home'}].concat(D.beats.filter(b => b.id !== 'other').map(b => ({id:b.id, name:b.name})), [{id:'trends', name:'Trends'}, {id:'petitions', name:'Petitions'}, {id:'about', name:'About'}]);
   const nav = document.getElementById('nav');
   nav.innerHTML = navItems.map(n => `<a href="#${n.id}" data-id="${n.id}">${esc(n.name)}</a>`).join('');
   const navL = document.getElementById('nav-left'), navR = document.getElementById('nav-right');
@@ -2800,7 +2804,7 @@ footer a{color:var(--ink)}
   const iconLinks = list => (list||[]).filter(s => s.url).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener" title="${esc(s.label)}" aria-label="Just a Dog Podcast on ${esc(s.label)}">${ICONS[s.label]||esc(s.label)}</a>`).join('');
   document.getElementById('foot-listen').innerHTML = iconLinks(L.links);
   document.getElementById('foot-social').innerHTML = iconLinks(L.social);
-  document.getElementById('foot-cats').innerHTML = D.beats.map(b => `<li><a href="#${b.id}">${esc(b.name)}</a></li>`).join('');
+  document.getElementById('foot-cats').innerHTML = D.beats.filter(b => b.id !== 'other').map(b => `<li><a href="#${b.id}">${esc(b.name)}</a></li>`).join('');
 
   function sourceList(sources){
     return `<ul class="sources">${(sources||[]).map(s => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.outlet)}: ${esc(s.title)}</a><small>${esc(fmt(s.date))} · Source grade ${esc(s.grade)}, ${esc(GRADE[s.grade]||'')}${s.note ? '. ' + esc(s.note) : ''}</small></li>`).join('')}</ul>`;
@@ -2890,7 +2894,7 @@ footer a{color:var(--ink)}
       <div class="sec-head"><h2 id="land-h">The dog landscape this week</h2><p>How much dog news there was in each category, and whether it was good news, mixed or confronting.</p></div>
       <div class="tbl"><table>
         <thead><tr><th scope="col">Category</th><th scope="col">Stories</th>${prevCounts ? '<th scope="col">Vs last week</th>' : ''}<th scope="col">Mood</th><th scope="col">Main story</th></tr></thead>
-        <tbody>${D.beats.map(b => { const c = counts[b.id]; const t = topIn(b.id); return `<tr><td><a href="#${b.id}">${esc(b.name)}</a></td><td class="num">${c.n}</td>${prevCounts ? `<td>${change(b.id)}</td>` : ''}<td>${pills(c)}</td><td>${t ? `<a href="#s-${esc(t.id)}" data-jump="${esc(t.id)}">${esc(t.headline)}</a>` : `<span class="muted">${esc((e.quiet||{})[b.id] || 'Nothing this week.')}</span>`}</td></tr>`; }).join('')}</tbody>
+        <tbody>${D.beats.filter(b => b.id !== 'other').map(b => { const c = counts[b.id]; const t = topIn(b.id); return `<tr><td><a href="#${b.id}">${esc(b.name)}</a></td><td class="num">${c.n}</td>${prevCounts ? `<td>${change(b.id)}</td>` : ''}<td>${pills(c)}</td><td>${t ? `<a href="#s-${esc(t.id)}" data-jump="${esc(t.id)}">${esc(t.headline)}</a>` : `<span class="muted">${esc((e.quiet||{})[b.id] || 'Nothing this week.')}</span>`}</td></tr>`; }).join('')}</tbody>
       </table></div>
     </section>`);
 
@@ -2998,7 +3002,7 @@ footer a{color:var(--ink)}
     const list = D.trends.slice().sort((a,b) => (order[a.stage]-order[b.stage]) || a.name.localeCompare(b.name));
     const preds = (D.predictions||[]);
     return `<div class="grid">
-      <header class="page-head span-12"><h1>Trends</h1><p>What's moving in the dog world over time, and where we think it's heading. We only call something a trend once it holds up.</p></header>
+      <header class="page-head span-12"><h1>Trends</h1></header>
       <section class="block span-12">
         <div class="sec-head"><h2>The tracker</h2></div>
         ${TREND_KEY}
@@ -3019,7 +3023,7 @@ footer a{color:var(--ink)}
     const pets = ((D.petitions||{}).items||[]).filter(x => !x.closes || x.closes >= todayISO).sort((a,b) => b.signatures - a.signatures);
     const groups = [...new Set(pets.map(x => x.parliament))];
     return `<div class="grid">
-      <header class="page-head span-12"><h1>Petitions</h1><p>Open petitions about dogs on UK government and parliament websites. Signing is free and open to UK residents.</p></header>
+      <header class="page-head span-12"><h1>Petitions</h1><p>Open petitions about dogs on UK government and parliament websites. Signing is free.</p></header>
       <section class="block span-12">${PETITION_NOTE}</section>
       ${groups.map(g => `<section class="block span-12"><div class="sec-head"><h2>${esc(g)}</h2><p>${pets.filter(x => x.parliament === g).length} open</p></div><ul class="plist">${pets.filter(x => x.parliament === g).map(petitionItem).join('')}</ul></section>`).join('')}
     </div>`;
@@ -3027,19 +3031,19 @@ footer a{color:var(--ink)}
 
   function aboutPage(){
     return `<div class="grid"><div class="span-12 prose">
-      <header class="page-head"><h1>About Just a Dog Weekly</h1><p>Just a Dog Weekly is a round-up of what's happening in the dog world, every Sunday. It's a Goofles Media project, from the home of Just a Dog Podcast.</p></header>
-      <h2>What you'll find</h2>
-      <p>The week's most important dog news, good and hard, across law and government, welfare, breeding, rescue, vets and health, science, food, shopping and ads, crime, training, working dogs, life with dogs, the environment and the wider world. UK first, then international. Plus the trends to watch, the dates coming up and the live petitions you can sign.</p>
-      <h2>What makes it different</h2>
+      <header class="page-head"><h1>About</h1><p>Just a Dog Weekly is a round-up of what's happening in the dog world, updated every Sunday.</p></header>
+      <p>The latest dog news from the UK and around the world, across these categories:</p>
+      <ul class="ticks">${D.beats.filter(b => b.id !== 'other').map(b => `<li>${esc(b.name)}</li>`).join('')}</ul>
+      <p>Plus trends to watch, key dates coming up and live petitions you can sign.</p>
+      <h2>What makes Just a Dog Weekly different</h2>
       <ul class="plain">
-        <li><strong>Dog-centred.</strong> Every story says what it means for dogs, not just for people.</li>
-        <li><strong>No product pushing.</strong> No sponsored stories, no affiliate links, no paid placements. There's one clearly marked ad space, and that's it.</li>
+        <li><strong>Dog-centred.</strong> Every story says what it means for dogs.</li>
         <li><strong>Trusted sources only.</strong> Every story is checked before it goes in, and links to the original.</li>
-        <li><strong>The whole picture.</strong> Good news sits alongside the hard stories, so you see what's really happening.</li>
-        <li><strong>More than headlines.</strong> We track how things change week to week, so you can see where the dog world is heading.</li>
+        <li><strong>Balanced.</strong> Good news stories sit alongside the more challenging ones, without shocking pictures.</li>
+        <li><strong>More than headlines.</strong> We track how stories and coverage change from week to week, so we can see where the dog world is heading.</li>
       </ul>
       <h2>We curate, we don't publish</h2>
-      <p>We don't report the news ourselves. Every story belongs to the outlet that reported it. We summarise it in our own words and link to the original, so read that for the full story.</p>
+      <p>We don't report the news ourselves. Every story belongs to the outlet that reported it. We summarise it in our own words and link to the original, for you to read if you'd like to.</p>
       <h2>What the labels mean</h2>
       <dl class="defs">
         <dt>Good news, Mixed, Confronting</dt><dd>The overall tone of a story for dogs.</dd>
@@ -3049,9 +3053,9 @@ footer a{color:var(--ink)}
         <dt>Source grades</dt><dd>A: official or original sources. B: established press, charities and vet bodies. C: organisations with an interest in the story, and we say who they are.</dd>
       </dl>
       <h2>Disclaimer</h2>
-      <p>We summarise reporting by other organisations and link to the originals wherever possible. They are responsible for their own reporting, and including a story or petition doesn't mean we endorse it. We check stories when we add them, but details can change, so check the original before relying on it. Nothing here is veterinary, legal or behavioural advice. If you're worried about your dog, speak to a vet. If a dog is in danger, contact the police.</p>
+      <p>We summarise reporting by other organisations and link to the original news stories wherever possible. The original authors are responsible for their own reporting, and including a story or a petition doesn't mean we endorse it. We check stories when we add them, but details can change, so check the original before relying on it. Nothing here is veterinary, legal or behavioural advice. If you're worried about your dog, speak to your vet. If a dog is in danger, contact the police.</p>
       <h2>Get in touch</h2>
-      <p>Spotted something we should cover, or something we got wrong? Email <span class="addr">hello@goofles.com</span>.</p>
+      <p>Spotted something we should cover, or something we got wrong?<br>Email <span class="addr">hello@goofles.com</span></p>
     </div></div>`;
   }
 
