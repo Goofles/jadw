@@ -83,6 +83,7 @@ main{padding-block:28px 64px}
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:2px solid var(--rule-strong);padding-top:10px;flex-wrap:wrap}
 .sec-head h2{font-family:var(--display);font-weight:400;font-size:34px;line-height:1;margin:0;letter-spacing:.02em;text-transform:uppercase}
 .sec-head p{margin:0;font-size:14px;color:var(--ink-2)}
+.sec-head.ed h2{font-family:var(--body);font-size:15px;font-weight:600;letter-spacing:.06em;line-height:1.3;color:var(--ink-2)}
 .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 32px}
 .cols.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:860px){.cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -2975,11 +2976,11 @@ footer a{color:var(--ink)}
     const byEd = {};
     items.forEach(s => (byEd[s.edition] = byEd[s.edition] || []).push(s));
     const groups = D.editions.filter(e => byEd[e.id]).map(e => `<section class="block span-12">
-        <div class="sec-head"><h2>${esc(e.label)}</h2></div>
+        <div class="sec-head ed"><h2>${esc(e.label)}</h2></div>
         <div class="cols">${byEd[e.id].map(s => storyHTML(s)).join('')}</div>
       </section>`).join('');
     return `<div class="grid">
-      <header class="page-head span-12"><h1>${esc(b.name)}</h1><p>${esc(b.blurb)}</p></header>
+      <header class="page-head span-12"><h1>${esc(b.name)}</h1></header>
       ${groups || `<section class="block span-12"><div class="sec-head"><h2>No stories yet</h2></div><p class="muted" style="margin:0">${esc(quiet || 'Nothing in this category yet. It is checked every week.')}</p></section>`}
       ${trends.length ? `<section class="block span-12"><div class="sec-head"><h2>Trends in ${esc(b.name.toLowerCase())}</h2><p><a href="#trends">All trends</a></p></div>${trendTable(trends)}</section>` : ''}
     </div>`;
