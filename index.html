@@ -3024,8 +3024,8 @@ footer a{color:var(--ink)}
    "where": "Canada",
    "region": "world",
    "headline": "Rescues take in dozens of surrendered dogs after attacks in northern Saskatchewan",
-   "summary": "After several dog attacks in Pelican Narrows, a Peter Ballantyne Cree Nation community in northern Saskatchewan, Canada, police said officers put down 3 dogs reportedly involved in an attack on 2 November. A person was reportedly critically injured in that attack. Boreal Animal Rescue and Running Wild Rescue then took in an estimated 40 to 50 dogs surrendered by families, Boreal's founder says, against up to 20 or 30 on a typical visit.",
-   "forDog": "Boreal's founder says they can't rescue their way out of the problem, and the team didn't reach the stray dogs gathering at the community dump this time. The groups also handed out straw, food, medicine and leads, and plan to return in December.",
+   "summary": "Two rescue groups took in up to 50 dogs, by an early estimate, on a visit to Pelican Narrows, a remote Cree First Nation community in northern Saskatchewan. Boreal Animal Rescue usually takes in up to 20 or 30. The visit was already planned when a dog attack there on 2 November left an adult with life-threatening injuries, police said. Officers put down three dogs reportedly involved. Boreal's founder, Chelsie Breeze, says that to her knowledge the dogs involved were owned, and that many families in northern communities do not feed their animals, which she sees as a root cause of dogs forming packs. Residents now carry metal poles when walking down the street, she says.",
+   "forDog": "Boreal's founder says they can't rescue their way out of the problem, and the team didn't reach the stray dogs gathering at the community dump this time. Boreal's team also brings straw, dog food, medicine, leads and collars, and plans to return in December.",
    "tone": "confronting",
    "status": "Developing",
    "weight": "Low",
@@ -3305,7 +3305,8 @@ footer a{color:var(--ink)}
      "date": "2026-11-05",
      "grade": "A"
     }
-   ]
+   ],
+   "updated": "2026-11-08"
   },
   {
    "id": "large-neglect-cases",
@@ -3624,7 +3625,8 @@ footer a{color:var(--ink)}
      "date": "2026-11-04",
      "grade": "A"
     }
-   ]
+   ],
+   "updated": "2026-11-08"
   },
   {
    "id": "national-dog-welfare-laws",
@@ -3676,7 +3678,8 @@ footer a{color:var(--ink)}
    "prediction": "p-mexico-law",
    "move": "up",
    "forDogs": "good",
-   "context": "More countries are setting national rules on how dogs must be bred, kept and cared for."
+   "context": "More countries are setting national rules on how dogs must be bred, kept and cared for.",
+   "updated": "2026-11-08"
   },
   {
    "id": "imported-dog-diseases",
@@ -3811,7 +3814,8 @@ footer a{color:var(--ink)}
      "date": "2026-10-27",
      "grade": "B"
     }
-   ]
+   ],
+   "updated": "2026-11-08"
   },
   {
    "id": "fireworks-rules",
@@ -3849,7 +3853,8 @@ footer a{color:var(--ink)}
      "date": "2026-05-12",
      "grade": "B"
     }
-   ]
+   ],
+   "updated": "2026-11-08"
   }
  ],
  "predictions": [
@@ -4021,11 +4026,6 @@ footer a{color:var(--ink)}
    "trend": "renting-with-dogs"
   },
   {
-   "date": "2026-12-01",
-   "what": "The Senedd petition to challenge Wales's greyhound racing ban closes.",
-   "trend": "greyhound-racing-bans"
-  },
-  {
    "date": "2027-04-20",
    "what": "Pennsylvania's law giving lab dogs and cats a route to adoption takes effect, according to Humane World for Animals.",
    "story": "pennsylvania-beagle-bill"
@@ -4045,13 +4045,6 @@ footer a{color:var(--ink)}
     "url": "https://petition.parliament.uk/petitions/769616",
     "signatures": 55699,
     "closes": "2026-12-12"
-   },
-   {
-    "parliament": "Senedd (Wales)",
-    "title": "Challenge the greyhound racing ban in Wales",
-    "url": "https://petitions.senedd.wales/petitions/246936",
-    "signatures": 10545,
-    "closes": "2026-12-01"
    },
    {
     "parliament": "UK Parliament",
@@ -4675,14 +4668,15 @@ footer a{color:var(--ink)}
     out.push(section('Around the world', '', world));
     out.push(section('Confronting', '', hard, `<p class="warn">These stories describe neglect, harm or a death involving dogs. Graphic details are left out.</p>`));
 
-    // Landscape
+    // Landscape (hidden on the page from 8 Nov 2026; beats are still tracked in the data)
+    const SHOW_LANDSCAPE = false;
     const tally = list => { const c = {}; D.beats.forEach(b => c[b.id] = {n:0, tones:{positive:0,mixed:0,confronting:0}}); list.forEach(s => (s.beats||[s.beat]).forEach(id => { if(c[id]){ c[id].n++; c[id].tones[s.tone]++; } })); return c; };
     const counts = tally(stories);
     const prevCounts = prev ? tally(D.stories.filter(s => s.edition === prev.id)) : null;
     const pills = c => c.n ? Object.entries(c.tones).filter(([,v]) => v > 0).map(([k,v]) => `<span class="pill ${k}">${v} ${esc(TONE[k].toLowerCase())}</span>`).join('') : '<span class="muted">Quiet</span>';
     const change = id => { const d = counts[id].n - prevCounts[id].n; return `<span class="chg">${d > 0 ? '↑ ' + d : d < 0 ? '↓ ' + (-d) : 'Same'}</span>`; };
     const topIn = id => stories.filter(s => (s.beats||[s.beat]).includes(id)).sort(byImportance)[0];
-    out.push(`<section class="block span-12" aria-labelledby="land-h">
+    if (SHOW_LANDSCAPE) out.push(`<section class="block span-12" aria-labelledby="land-h">
       <div class="sec-head"><h2 id="land-h">The dog landscape this week</h2><p>How much dog news there was in each category, and whether it was good news, mixed or confronting.</p></div>
       <div class="tbl"><table>
         <thead><tr><th scope="col">Category</th><th scope="col">Stories</th>${prevCounts ? '<th scope="col">Vs last week</th>' : ''}<th scope="col">Mood</th><th scope="col">Main story</th></tr></thead>
@@ -4690,7 +4684,9 @@ footer a{color:var(--ink)}
       </table></div>
     </section>`);
 
-    const tr = D.trends.filter(t => t.stage === 'trend' || t.stage === 'pattern').slice(0, 5);
+    const trAll = D.trends.filter(t => t.stage === 'trend' || t.stage === 'pattern');
+    // Trends updated or added this edition go first, then the rest in list order
+    const tr = [...trAll.filter(t => t.updated === e.id), ...trAll.filter(t => t.updated !== e.id)].slice(0, 5);
     out.push(`<section class="block span-6" aria-labelledby="tr-h">
       <div class="sec-head"><h2 id="tr-h">Trends to watch</h2><p><a href="#trends">All trends and predictions</a></p></div>
       ${TREND_KEY}
