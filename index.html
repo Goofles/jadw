@@ -160,6 +160,16 @@ main{padding-block:28px 64px}
 .sub.banner .sub-btn:hover{background:var(--soft-solid,#e6eeff)}
 @media (max-width:640px){.sub.banner{grid-template-columns:1fr}}
 .sub small{font-size:13px;color:rgba(255,255,255,.85)}
+.sub-form{display:grid;gap:10px;width:100%;max-width:440px}
+.sub-form input[type=email]{width:100%;min-width:0;font:inherit;font-size:16px;line-height:1.3;color:var(--navy);background:#ffffff;border:0;border-radius:6px;padding:11px 12px}
+.sub-form input[type=email]::placeholder{color:#625dab}
+.sub-form .sub-btn{border:0;cursor:pointer;font-family:inherit}
+.sub-form .sub-btn:disabled{opacity:.7;cursor:default}
+.sub-consent{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.35;color:#ffffff;cursor:pointer}
+.sub-consent input{flex:0 0 auto;width:18px;height:18px;margin:1px 0 0;accent-color:#0e067d}
+.sub-done{margin:0;font-size:17px!important;font-weight:600;line-height:1.4}
+.sub-done span{display:block;font-weight:400}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .sub-btn{display:inline-block;justify-self:start;background:#ffffff;color:var(--navy);text-decoration:none;font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase;padding:12px 18px}
 .sub-btn:hover{background:var(--soft)}
 .pod,.panel,.sub,.adspot,.more,.warn{border-radius:10px}
@@ -4725,18 +4735,42 @@ footer a{color:var(--ink)}
     return out.join('');
   }
 
+  // Sign-up: posts straight to the Google Form, so readers never leave the page.
+  const SUB_EMAIL = 'entry.1151332776';
+  const SUB_CONSENT = 'entry.1056651365';
+  const SUB_CONSENT_VALUE = 'Yes, send me Just a Dog Weekly every Sunday. I can unsubscribe at any time.';
   function subscribeBox(banner){
     const s = D.subscribe;
     if(!s || !s.url) return '';
     const id = banner ? 'sub-h2' : 'sub-h';
+    const k = banner ? 'b' : 'a';
+    const post = s.url.replace(/\/viewform.*$/, '/formResponse');
     return `<section class="sub${banner ? ' banner' : ''}" aria-labelledby="${id}">
       <div class="sub-text"><h2 id="${id}">Subscribe</h2>
       <p>Subscribe to Just a Dog Weekly for a round-up of what's happening across the dog world, delivered to your inbox every Sunday.</p></div>
-      <div class="sub-act"><a class="sub-btn" href="${esc(s.url)}" target="_blank" rel="noopener">Subscribe ↗</a>
-      <small>Free. Unsubscribe at any time.</small>
-      <small>Need help? Email <a href="mailto:hello@goofles.com">hello@goofles.com</a></small></div>
+      <div class="sub-act">
+        <form class="sub-form" action="${esc(post)}" method="POST" target="sub-frame-${k}">
+          <label class="vh" for="sub-email-${k}">Your email address</label><input id="sub-email-${k}" type="email" name="${SUB_EMAIL}" placeholder="Your email address" autocomplete="email" required>
+          <label class="sub-consent"><input type="checkbox" name="${SUB_CONSENT}" value="${esc(SUB_CONSENT_VALUE)}" required><span>Yes, send me Just a Dog Weekly every Sunday.</span></label>
+          <button class="sub-btn" type="submit">Subscribe</button>
+        </form>
+        <p class="sub-done" role="status" hidden>Thank you for subscribing!<span>Your first Just a Dog Weekly arrives on Sunday.</span></p>
+        <iframe name="sub-frame-${k}" title="Sign-up" tabindex="-1" aria-hidden="true" hidden></iframe>
+        <small>Free. Unsubscribe at any time.</small>
+        <small>Need help? Email <a href="mailto:hello@goofles.com">hello@goofles.com</a></small>
+      </div>
     </section>`;
   }
+  document.addEventListener('submit', e => {
+    const f = e.target.closest && e.target.closest('.sub-form');
+    if(!f) return;
+    const act = f.parentElement, btn = f.querySelector('button'), fr = act.querySelector('iframe');
+    btn.disabled = true; btn.textContent = 'Subscribing…';
+    let done = false;
+    const finish = () => { if(done) return; done = true; f.hidden = true; act.querySelector('.sub-done').hidden = false; };
+    fr.addEventListener('load', finish, {once:true});
+    setTimeout(finish, 8000);
+  });
   document.getElementById('foot-sub').innerHTML = subscribeBox(true);
 
   function podcastCard(){
