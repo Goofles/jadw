@@ -5701,23 +5701,23 @@ footer a{color:var(--ink)}
     }
    },
    {
-    "title": "Good Boy",
-    "type": "Horror film, 2025, rated 15",
-    "where": "Shudder",
-    "about": "A retriever called Indy senses something dark in the farmhouse he moves into with his guardian, and the film is told from Indy's point of view.",
+    "title": "The Secret Lives of Greyhounds",
+    "type": "Documentary, 2026, 40 min, made by Animal Aid",
+    "where": "Free UK screenings until 27 November, then free online in December, Animal Aid say",
+    "about": "Animal Aid's film uses undercover footage from their 12-month investigation into greyhound racing in Britain. It includes upsetting scenes of dogs in distress.",
     "trailer": {
-     "label": "Watch the trailer on YouTube",
-     "url": "https://www.youtube.com/watch?v=q4-CRkd_74g"
+     "label": "Watch the trailer on the film's website",
+     "url": "https://www.thesecretlivesofgreyhounds.org/"
     }
    },
    {
-    "title": "Eat Pray Bark",
-    "type": "Comedy film, 2026, in German",
-    "where": "Netflix",
-    "about": "Five people take their dogs to a training camp in the Tyrolean Alps, where it turns out the people, not the dogs, need the training.",
+    "title": "La Perra",
+    "type": "Film, 2026, Chile and Brazil, in Spanish",
+    "where": "No UK release date yet",
+    "about": "A lonely woman on a remote island in southern Chile rescues a puppy called Yuri, and when Yuri runs away, painful memories from her past come back.",
     "trailer": {
-     "label": "Watch a clip on YouTube (in German)",
-     "url": "https://www.youtube.com/watch?v=vuhrvyoqIzU"
+     "label": "Watch the trailer on YouTube (Busan International Film Festival)",
+     "url": "https://www.youtube.com/watch?v=UdgVmQTc5oY"
     }
    }
   ]
@@ -6004,8 +6004,8 @@ footer a{color:var(--ink)}
     const w = D.watch;
     if(!w || !(w.items||[]).length) return '';
     return `<section class="watch" aria-labelledby="watch-h">
-      <h2 id="watch-h">5 things to watch</h2>
-      <p class="wnote">Dog films and series you can watch in the UK${w.checked ? ', checked ' + esc(fmt(w.checked)) : ''}.</p>
+      <h2 id="watch-h">${w.items.slice(0,5).length} things to watch</h2>
+      <p class="wnote">Dog films, documentaries and series, out now or coming soon${w.checked ? ', checked ' + esc(fmt(w.checked)) : ''}.</p>
       <ul class="wlist">${w.items.slice(0,5).map(x => `<li><span class="wtitle">${esc(x.title)}</span><span class="wmeta">${esc(x.type)}${x.where ? ' · ' + esc(x.where) : ''}</span><p class="wabout">${esc(x.about)}</p>${x.trailer && x.trailer.url ? `<a class="wlink" href="${esc(x.trailer.url)}" target="_blank" rel="noopener">${esc(x.trailer.label||'Watch the trailer')} ↗</a>` : ''}</li>`).join('')}</ul>
     </section>`;
   }
